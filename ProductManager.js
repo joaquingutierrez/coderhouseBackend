@@ -16,15 +16,25 @@ class ProductManager {
                     }
                 ]
             }
-            return console.error('The product already exists in the list')
+            throw new Error('The product already exists in the list')
         }
-        console.log("Error: Missing product's properties")
+        throw new Error("Error: Missing product's properties")
     }
     getProducts() {
         return this.products
     }
     getProductById(id) {
-        return ((this.products.filter((item) => item.id === id)) || console.error('Error: Product not found'))
+        const productFiltered = (this.products.filter((item) => item.id === id))
+        if (productFiltered) {
+            return productFiltered
+        }
+        throw new Error('Error: Product not found')
+    }
+    updateProduct(id, product) {
+
+    }
+    deleteProduct(id) {
+
     }
 }
 
@@ -91,7 +101,7 @@ console.log(testList.getProducts())
 console.log('-------------------------------------')
 
 console.log(ProductManager.id)
-testList.addProduct(test2)
+//testList.addProduct(test2)
 console.log(testList.getProducts())
 
 console.log('-------------------------------------')
@@ -109,9 +119,9 @@ console.log(testList.getProducts())
 console.log('-------------------------------------')
 
 console.log(ProductManager.id)
-testList.addProduct(test5)
+//testList.addProduct(test5)
 console.log(testList.getProducts())
 
 console.log('-------------------------------------')
 
-console.log(testList.getProductById(3));
+console.log(testList.getProductById(1));
