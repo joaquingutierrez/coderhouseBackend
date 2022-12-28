@@ -5,7 +5,6 @@ class ProductManager {
     constructor(path) {
         this.path = path;
         this.getProducts()
-        this.file = fs.writeFileSync(this.path, JSON.stringify(this.products))
     }
     addProduct(product) {
         const { title, description, price, thumbnail, code, stock } = product;
@@ -62,94 +61,9 @@ class ProductManager {
     }
 }
 
-
 //test
+const testList = new ProductManager('./testList.json')
 
-// const testList = new ProductManager('./testList.JSON')
-
-// console.log(ProductManager.id)
-// console.log(testList.getProducts())
-
-console.log('-------------------------------------')
-
-//producto normal
-const test = {
-    title: 'producto prueba',
-    description: 'Este es un producto prueba',
-    price: 200,
-    thumbnail: 'Sin imagen',
-    code: 'abc123',
-    stock: 25
+module.exports = {
+    testList
 }
-//producto repetido
-const test2 = {
-    title: 'producto prueba',
-    description: 'Este es un producto prueba',
-    price: 200,
-    thumbnail: 'Sin imagen',
-    code: 'abc123',
-    stock: 25
-}
-//producto normal
-const test3 = {
-    title: 'producto prueba',
-    description: 'Este es un producto prueba',
-    price: 200,
-    thumbnail: 'Sin imagen',
-    code: 'abc123456',
-    stock: 25
-}
-//producto normal
-const test4 = {
-    title: 'producto prueba',
-    description: 'Este es un producto prueba',
-    price: 200,
-    thumbnail: 'Sin imagen',
-    code: 'abc123456789',
-    stock: 25
-}
-//producto con propiedades faltantes
-const test5 = {
-    title: 'producto prueba',
-    description: 'Este es un producto prueba',
-    price: 200,
-    code: 'abcdfg123456789',
-    stock: 25
-}
-
-
-//console.log(ProductManager.id)
-// testList.addProduct(test)
-//console.log(testList.getProducts())
-
-console.log('-------------------------------------')
-
-//console.log(ProductManager.id)
-// testList.addProduct(test2)
-//console.log(testList.getProducts())
-
-console.log('-------------------------------------')
-
-//console.log(ProductManager.id)
-// testList.addProduct(test3)
-//console.log(testList.getProducts())
-
-console.log('-------------------------------------')
-
-//console.log(ProductManager.id)
-// testList.addProduct(test4)
-//console.log(testList.getProducts())
-
-console.log('-------------------------------------')
-
-//console.log(ProductManager.id)
-// testList.addProduct(test5)
-//console.log(testList.getProducts())
-
-console.log('-------------------------------------')
-
-//console.log(testList.getProductById(1));
-
-// testList.updateProduct(2, 'price', 999999999)
-
-// testList.deleteProduct(2)
