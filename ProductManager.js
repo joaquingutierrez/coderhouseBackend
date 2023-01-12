@@ -7,17 +7,18 @@ class ProductManager {
         this.getProducts()
     }
     addProduct(product) {
-        const { title, description, price, thumbnail, code, stock } = product;
+        const { title, description, price, thumbnail, code, stock, category } = product;
         this.getProducts();
         const lastIndex = this.products.length - 1
         if (lastIndex >= 0) {
             ProductManager.id = this.products[lastIndex].id
         }
-        if (title && description && price && thumbnail && code && stock) {
+        if (title && description && price && thumbnail && code && stock && category) {
             if (!this.products.some((item) => item.code === product.code)) {
                 ProductManager.id++;
                 product = {
                     ...product,
+                    status: true,
                     id: ProductManager.id
                 };
                 this.products.push(product)
@@ -50,8 +51,11 @@ class ProductManager {
     updateProduct(id, property, value) {
         this.getProducts();
         const productId = this.getProductById(id);
-        Object.defineProperty(productId, property, { value: value });
-        this.writeProductsList();
+        if (property !== "id") {
+            Object.defineProperty(productId, property, { value: value });
+            return this.writeProductsList();
+        }
+        throw new Error("No se puede cambiar el ID")
     }
     deleteProduct(id) {
         const productId = this.getProductById(id);
@@ -62,7 +66,8 @@ class ProductManager {
 }
 
 //test
-const testList = new ProductManager('./testList.json')
+const testList = new ProductManager('./data_base/testList.json')
+
 
 module.exports = {
     testList

@@ -1,0 +1,47 @@
+[
+	{
+		"cId": 0,
+		"products": []
+	},
+	{
+		"cId": 1,
+		"products": []
+	},
+	{
+		"cId": 2,
+		"products": []
+	},
+	{
+		"cId": 3,
+		"products": []
+	},
+	{
+		"cId": 4,
+		"products": []
+	},
+	{
+		"cId": 5,
+		"products": [
+			{
+				"pId": 2,
+				"quantity": 8
+			},
+			{
+				"pId": 3,
+				"quantity": 8
+			},
+			{
+				"pId": 8,
+				"quantity": 8
+			},
+			{
+				"pId": 7,
+				"quantity": 8
+			},
+			{
+				"pId": 14,
+				"quantity": 40
+			}
+		]
+	}
+]

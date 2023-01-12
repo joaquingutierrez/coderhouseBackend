@@ -1,24 +1,16 @@
 const { testList } = require("./ProductManager")
 const express = require('express')
 const app = express()
+const { cartsRouter } = require('./routers/cartsRouter')
+const { productsRouter } = require('./routers/productsRouter')
+const {indexRouter} = require('./routers/indexRoute')
 
-app.get('/', function (req, res) {
-    res.send('Bienvenidos')
-})
-app.get('/products', async function (request, response) {
-    const { limit } = request.query;
-    if (limit) {
-        const productsLimit = await testList.getProducts().splice(0, limit)
-        response.send(productsLimit)
-    } else {
-        const products = await testList.getProducts()
-        response.send(products)
-    }
-})
-app.get('/products/:pId', async function (req, res) {
-    const { pId } = req.params;
-    const productId = await testList.getProductById(parseInt(pId))
-    res.send(productId)
-})
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use('/', indexRouter)
+app.use('/api/carts', cartsRouter);
+app.use('/api/products', productsRouter);
+
 
 app.listen(8080)
