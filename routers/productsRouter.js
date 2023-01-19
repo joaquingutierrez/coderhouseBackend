@@ -2,14 +2,33 @@ const express = require('express');
 const productsRouter = express.Router();
 const { testList } = require("../ProductManager")
 
+
+const stringHTMLProducts = (products) => {
+    let productsRenderList = ""
+    products.map(item => {
+        productsRenderList += `
+            <li>
+                <h3>title: ${item.title}</h3>
+                <p>description: ${item.description}</p>
+                <h3>price: ${item.price}</h3>
+                <h4>code: ${item.code}</h4>
+            </li>
+        `
+    })
+    return productsRenderList
+}
+
+
 productsRouter.get('', async function (request, response) {
     const { limit } = request.query;
     if (limit) {
         const productsLimit = await testList.getProducts().splice(0, limit)
-        response.send(productsLimit)
+        const productsRenderList = stringHTMLProducts(productsLimit)
+        response.render("home", { productsRenderList })
     } else {
         const products = await testList.getProducts()
-        response.send(products)
+        const productsRenderList = stringHTMLProducts(products)
+        response.render("home", { productsRenderList })
     }
 })
 productsRouter.get('/:pId', async function (req, res) {
