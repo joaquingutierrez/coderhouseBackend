@@ -45,7 +45,3 @@ app.delete("/realTimeProducts/:pId", function (req, res) {
     socketServer.emit("emitDELETE", testList.products)
     res.send(`Producto con id: ${productId} eliminado satisfactoriamente`)
 })
-
-module.exports = {
-    socketServer
-}
