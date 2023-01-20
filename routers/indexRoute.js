@@ -5,7 +5,7 @@ const { testList } = require('../ProductManager')
 
 
 indexRouter.get('', function (req, res) {
-    res.send('Bienvenidos')
+    res.render('index')
 })
 
 

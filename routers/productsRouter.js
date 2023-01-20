@@ -1,7 +1,7 @@
 const express = require('express');
 const productsRouter = express.Router();
 const { testList } = require("../ProductManager")
-
+const { Server } = require('socket.io')
 
 const stringHTMLProducts = (products) => {
     let productsRenderList = ""
@@ -38,7 +38,7 @@ productsRouter.get('/:pId', async function (req, res) {
 })
 productsRouter.post('', async function (req, res) {
     const newProduct = await req.body;
-    testList.addProduct(newProduct)
+    testList.addProduct(newProduct)   
     res.send('Producto agregado satisfactoriamente')
 })
 productsRouter.delete("/:pId", function (req, res) {
@@ -55,5 +55,6 @@ productsRouter.put("/:pId", function (req, res) {
 
 
 module.exports = {
-    productsRouter
+    productsRouter,
+    stringHTMLProducts
 }
