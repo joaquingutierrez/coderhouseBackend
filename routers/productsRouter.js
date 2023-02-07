@@ -1,6 +1,5 @@
 const express = require('express');
 const productsRouter = express.Router();
-const { testList } = require("../dao/fsManager/ProductManager")
 const { productsList } = require("../dao/mongoManager/ProductManager")
 
 const stringHTMLProducts = (products) => {

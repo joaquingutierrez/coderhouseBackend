@@ -4,10 +4,12 @@ const app = express()
 const { cartsRouter } = require('./routers/cartsRouter')
 const { productsRouter } = require('./routers/productsRouter')
 const { indexRouter } = require('./routers/indexRoute')
+const { chatRouter } = require("./routers/chatRouter")
 const { engine } = require('express-handlebars')
 const { Server } = require('socket.io')
 const { stringHTMLProducts } = require('./routers/productsRouter')
 const { default: mongoose } = require('mongoose')
+const { messagesModel } = require("./dao/mongoManager/models/messages.model")
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -29,13 +31,28 @@ mongoose.connect("mongodb+srv://Joaquin:SQfRoWZgEw1QkRDF@cluster0.i34mf4h.mongod
 app.use('/', indexRouter)
 app.use('/api/carts', cartsRouter);
 app.use('/api/products', productsRouter);
+app.use('/chat', chatRouter)
 
 const PORT = 8080
 const httpServer = app.listen(PORT)
 const socketServer = new Server(httpServer)
-socketServer.on("connection", () => {
+socketServer.on("connection", (socket) => {
     console.log("Usuario nuevo conectado")
-})
+    socket.on("new-user", (data) => {
+        socket.user = data.user;
+        socket.id = data.id;
+        socket.broadcast.emit("new-user-connected", {
+            user: socket.user,
+            id: socket.id,
+        });
+    });
+    socket.on("message", async (data) => {
+        const newMessage = new messagesModel(data)
+        await newMessage.save()
+        const messages = await messagesModel.find()
+        socketServer.emit("messagesLogs", messages);
+    });
+});
 
 
 
@@ -59,3 +76,5 @@ app.delete("/realTimeProducts/:pId", async function (req, res) {
     socketServer.emit("emitDELETE", products)
     res.send(`Producto con id: ${productId} eliminado satisfactoriamente`)
 })
+
+
