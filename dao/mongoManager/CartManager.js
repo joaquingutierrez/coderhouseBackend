@@ -12,7 +12,7 @@ class CartManager {
     }
     async getCart(cartId) {
         try {
-            const cart = await cartsModel.find({ _id: cartId })
+            const cart = await cartsModel.findOne({ _id: cartId })
             return cart
         }
         catch {

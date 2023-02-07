@@ -23,7 +23,7 @@ cartsRouter.post("", async function (req, res) {
 })
 
 cartsRouter.get("/:cId", async function (req, res) {
-    const cId = parseInt(req.params.cId);
+    const cId = req.params.cId;
     const cart = await cartsList.getCart(cId)
     res.send(cart.products)
 })
