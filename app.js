@@ -1,4 +1,4 @@
-const { testList } = require('./dao/fsManager/ProductManager')
+const { productsList } = require('./dao/mongoManager/ProductManager')
 const express = require('express')
 const app = express()
 const { cartsRouter } = require('./routers/cartsRouter')
@@ -41,19 +41,21 @@ socketServer.on("connection", () => {
 
 
 app.get("/realTimeProducts", async function (req, res) {
-    const products = await testList.getProducts()
+    const products = await productsList.getProducts()
     const productsRenderList = stringHTMLProducts(products)
     res.render("realTimeProducts", { productsRenderList })
 })
 app.post('/realTimeProducts', async function (req, res) {
     const newProduct = await req.body;
-    testList.addProduct(newProduct)
-    socketServer.emit("emitPOST", testList.products)
+    await productsList.addProduct(newProduct)
+    const products = await productsList.getProducts()
+    socketServer.emit("emitPOST", products)
     res.send('Producto agregado satisfactoriamente')
 })
-app.delete("/realTimeProducts/:pId", function (req, res) {
-    const productId = parseInt(req.params.pId);
-    testList.deleteProduct(productId)
-    socketServer.emit("emitDELETE", testList.products)
+app.delete("/realTimeProducts/:pId", async function (req, res) {
+    const productId = req.params.pId;
+    await productsList.deleteProduct(productId)
+    const products = await productsList.getProducts()
+    socketServer.emit("emitDELETE", products)
     res.send(`Producto con id: ${productId} eliminado satisfactoriamente`)
 })
