@@ -1,6 +1,6 @@
 const express = require('express');
 const cartsRouter = express.Router();
-const { cartsList } = require("../CartManager")
+const { cartsList } = require("../dao/fsManager/CartManager")
 
 cartsRouter.get('', (req, res) => {
     res.send('hola Mundo')

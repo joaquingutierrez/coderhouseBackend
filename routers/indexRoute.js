@@ -1,7 +1,7 @@
 const express = require('express');
 const { cartsRouter } = require('./cartsRouter');
 const indexRouter = express.Router();
-const { testList } = require('../ProductManager')
+const { testList } = require('../dao/fsManager/ProductManager')
 
 
 indexRouter.get('', function (req, res) {

@@ -1,6 +1,6 @@
 const express = require('express');
 const productsRouter = express.Router();
-const { testList } = require("../ProductManager")
+const { testList } = require("../dao/fsManager/ProductManager")
 const { Server } = require('socket.io')
 
 const stringHTMLProducts = (products) => {
