@@ -7,6 +7,7 @@ const { indexRouter } = require('./routers/indexRoute')
 const { engine } = require('express-handlebars')
 const { Server } = require('socket.io')
 const { stringHTMLProducts } = require('./routers/productsRouter')
+const { default: mongoose } = require('mongoose')
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -16,6 +17,14 @@ app.set('view engine', 'handlebars');
 app.set('views', __dirname + '/views');
 
 app.use(express.static(__dirname + "/public"));
+
+mongoose.connect("mongodb+srv://Joaquin:SQfRoWZgEw1QkRDF@cluster0.i34mf4h.mongodb.net/ecommerce?retryWrites=true&w=majority", (err) => {
+    if (err) {
+        console.log("Error al conectarse a la Base de Datos");
+    } else {
+        console.log("Conectado con exito a la base de datos");
+    }
+})
 
 app.use('/', indexRouter)
 app.use('/api/carts', cartsRouter);
@@ -27,6 +36,9 @@ const socketServer = new Server(httpServer)
 socketServer.on("connection", () => {
     console.log("Usuario nuevo conectado")
 })
+
+
+
 
 app.get("/realTimeProducts", async function (req, res) {
     const products = await testList.getProducts()
