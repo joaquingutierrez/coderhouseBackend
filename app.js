@@ -9,7 +9,7 @@ const { engine } = require('express-handlebars')
 const { Server } = require('socket.io')
 const { stringHTMLProducts } = require('./routers/productsRouter')
 const { default: mongoose } = require('mongoose')
-const { messagesModel } = require("./dao/mongoManager/models/messages.model")
+const { messagesModal } = require("./dao/mongoManager/models/messages.model")
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -38,18 +38,21 @@ const httpServer = app.listen(PORT)
 const socketServer = new Server(httpServer)
 socketServer.on("connection", (socket) => {
     console.log("Usuario nuevo conectado")
-    socket.on("new-user", (data) => {
+    socket.on("new-user", async (data) => {
         socket.user = data.user;
         socket.id = data.id;
         socket.broadcast.emit("new-user-connected", {
             user: socket.user,
             id: socket.id,
         });
+        //firstLoad
+        const messages = await messagesModal.find()
+        socket.emit("messagesLogs", messages)
     });
     socket.on("message", async (data) => {
-        const newMessage = new messagesModel(data)
+        const newMessage = new messagesModal(data)
         await newMessage.save()
-        const messages = await messagesModel.find()
+        const messages = await messagesModal.find()
         socketServer.emit("messagesLogs", messages);
     });
 });

@@ -2,6 +2,7 @@ const socket = io()
 let chatInput = document.getElementById("chatInput")
 let user
 
+
 Swal.fire({
     title: "Inicia sesion!",
     text: "Ingresa tu nombre de usuario",
@@ -38,7 +39,7 @@ socket.on("messagesLogs", (data) => {
 
     data.forEach((elem) => {
         message += `
-            <div> 
+            <div class="messageLog"> 
                 <h5>${elem.user}</h5>
                 <p>${elem.message}</p>
             </div>

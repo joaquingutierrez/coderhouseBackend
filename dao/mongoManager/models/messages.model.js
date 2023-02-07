@@ -7,8 +7,8 @@ const messagesSchema = new mongoose.Schema({
     message: String
 })
 
-const messagesModel = mongoose.model(messagesCollection, messagesSchema)
+const messagesModal = mongoose.model(messagesCollection, messagesSchema)
 
 module.exports = {
-    messagesModel
+    messagesModal
 }
