@@ -1,0 +1,61 @@
+const { cartsModel } = require("./models/carts.model")
+
+class CartManager {
+    async getCarts() {
+        try {
+            const carts = await cartsModel.find()
+            return carts
+        }
+        catch (err) {
+            throw err
+        }
+    }
+    async getCart(cartId) {
+        try {
+            const cart = await cartsModel.find({ _id: cartId })
+            return cart
+        }
+        catch {
+            throw err
+        }
+    }
+    async addCart() {
+        try {
+            const newCart = new cartsModel([])
+            await newCart.save()
+            return newCart
+        }
+        catch (err) {
+            throw err
+        }
+    }
+    async addProduct(cartId, productId, quantity) {
+        try {
+            const cart = await cartsModel.findOne({_id: cartId})
+            if (productId && quantity) {
+                if (!(cart.products.some((item) => item.productId === productId))) {
+                    cart.products.push({
+                        productId: productId,
+                        quantity: quantity
+                    })
+                }
+                else {
+                    const index = cart.products.findIndex((item) => item.productId === productId)
+                    cart.products[index].quantity += quantity
+                }
+                await cartsModel.findByIdAndUpdate(cartId, cart)
+                return cart
+            }
+            throw new Error("Faltan propiedades")
+        }
+        catch (err) {
+            throw err
+        }
+    }
+}
+
+const cartsList = new CartManager()
+
+module.exports = {
+    cartsList
+}

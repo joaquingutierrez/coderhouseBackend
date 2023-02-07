@@ -46,7 +46,7 @@ class ProductManager {
     }
 }
 
-const productsList = new ProductManager
+const productsList = new ProductManager()
 
 module.exports = {
     productsList
