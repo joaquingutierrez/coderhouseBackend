@@ -1,5 +1,6 @@
-const { productsList } = require('./dao/mongoManager/ProductManager')
 const express = require('express')
+require('dotenv').config()
+const { productsList } = require('./dao/mongoManager/ProductManager')
 const app = express()
 const { cartsRouter } = require('./routers/cartsRouter')
 const { productsRouter } = require('./routers/productsRouter')
@@ -20,7 +21,7 @@ app.set('views', __dirname + '/views');
 
 app.use(express.static(__dirname + "/public"));
 
-mongoose.connect("mongodb+srv://Joaquin:SQfRoWZgEw1QkRDF@cluster0.i34mf4h.mongodb.net/ecommerce?retryWrites=true&w=majority", (err) => {
+mongoose.connect(`mongodb+srv://${process.env.USER_MONGO}:${process.env.PASSWORD_MONGO}@cluster0.i34mf4h.mongodb.net/${process.env.DB_MONGO}?retryWrites=true&w=majority`, (err) => {
     if (err) {
         console.log("Error al conectarse a la Base de Datos");
     } else {
