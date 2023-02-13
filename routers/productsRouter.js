@@ -7,12 +7,13 @@ const stringHTMLProducts = (products) => {
     let productsRenderList = ""
     products.map(item => {
         productsRenderList += `
-            <li>
+            <div class="card">
                 <h3>title: ${item.title}</h3>
                 <p>description: ${item.description}</p>
                 <h3>price: ${item.price}</h3>
                 <h4>code: ${item.code}</h4>
-            </li>
+                <h4>category: ${item.category}</h4>
+            </div>
         `
     })
     return productsRenderList
@@ -21,14 +22,28 @@ const stringHTMLProducts = (products) => {
 
 productsRouter.get('', async function (request, response) {
 
+    const {limit, page, sort, category} = request.query
+    let productsResponse
     try {
-        const productsResponse = await productsModel.paginate(
-            {},
-            {page: 1, limit: 3}
-        )
+        if (category) {
+            productsResponse = await productsModel.paginate(
+                {category: category},
+                {page: page || 1, limit: limit || 10, sort:{price: sort || null}}
+            )
+        }
+        else {
+            productsResponse = await productsModel.paginate(
+                {},
+                {page: page || 1, limit: limit || 10, sort:{price: sort || null}}
+            )
+        }
         const products = productsResponse.docs
         const productsRenderList = stringHTMLProducts(products)
-        response.render("home", { productsRenderList })
+        const productsResponseJSON = JSON.stringify(productsResponse)
+        response.render("home", { 
+            productsRenderList,
+            productsResponseJSON 
+        })
     }
     catch {
         console.log("Error");

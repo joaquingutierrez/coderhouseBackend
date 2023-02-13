@@ -1,0 +1,33 @@
+.messageLog {
+    border: 1px solid black;
+}
+.messageLog h5 {
+    font-size: 1.2rem;
+    margin: 2px 16px;
+}
+.messageLog p {
+    font-size: 1.2rem;
+    margin: 8px 32px;
+}
+#chatInput {
+    height: 2rem;
+    width: 100%;
+    margin: 10px;
+}
+
+.container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+.card {
+    border: 1px solid black;
+    padding: 10px;
+    margin: 10px;
+    width: 250px;
+    height: 350px;
+}
+.active {
+    color: blue;
+    border-bottom: 1px solid blue;
+}
