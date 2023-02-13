@@ -13,6 +13,7 @@ const stringHTMLProducts = (products) => {
                 <h3>price: ${item.price}</h3>
                 <h4>code: ${item.code}</h4>
                 <h4>category: ${item.category}</h4>
+                <a href="/api/products/${item._id}"><button>Más detalles</button><a>
             </div>
         `
     })
@@ -22,27 +23,27 @@ const stringHTMLProducts = (products) => {
 
 productsRouter.get('', async function (request, response) {
 
-    const {limit, page, sort, category} = request.query
+    const { limit, page, sort, category } = request.query
     let productsResponse
     try {
         if (category) {
             productsResponse = await productsModel.paginate(
-                {category: category},
-                {page: page || 1, limit: limit || 10, sort:{price: sort || null}}
+                { category: category },
+                { page: page || 1, limit: limit || 10, sort: { price: sort || null } }
             )
         }
         else {
             productsResponse = await productsModel.paginate(
                 {},
-                {page: page || 1, limit: limit || 10, sort:{price: sort || null}}
+                { page: page || 1, limit: limit || 10, sort: { price: sort || null } }
             )
         }
         const products = productsResponse.docs
         const productsRenderList = stringHTMLProducts(products)
         const productsResponseJSON = JSON.stringify(productsResponse)
-        response.render("home", { 
+        response.render("home", {
             productsRenderList,
-            productsResponseJSON 
+            productsResponseJSON
         })
     }
     catch {
@@ -53,7 +54,8 @@ productsRouter.get('', async function (request, response) {
 productsRouter.get('/:pId', async function (req, res) {
     const { pId } = req.params;
     const productId = await productsList.getProductById(pId)
-    res.send(productId)
+    const { title, description, price, thumbnail, stock, category } = productId[0]
+    res.render("product", { title, description, price, thumbnail, stock, category })
 })
 
 productsRouter.post('', async function (req, res) {
