@@ -1,4 +1,5 @@
 const express = require('express');
+const { productsModel } = require('../dao/mongoManager/models/products.model');
 const productsRouter = express.Router();
 const { productsList } = require("../dao/mongoManager/ProductManager")
 
@@ -19,20 +20,24 @@ const stringHTMLProducts = (products) => {
 
 
 productsRouter.get('', async function (request, response) {
+
     try {
-        const products = await productsList.getProducts()
-        console.log(products);
+        const productsResponse = await productsModel.paginate(
+            {},
+            {page: 1, limit: 3}
+        )
+        const products = productsResponse.docs
         const productsRenderList = stringHTMLProducts(products)
         response.render("home", { productsRenderList })
     }
     catch {
-        response.send("No hay produtos agregados")
+        console.log("Error");
     }
 })
 
 productsRouter.get('/:pId', async function (req, res) {
     const { pId } = req.params;
-    const productId = await productsList.getProductById(parseInt(pId))
+    const productId = await productsList.getProductById(pId)
     res.send(productId)
 })
 
@@ -55,6 +60,6 @@ productsRouter.put("/:pId", function (req, res) {
 
 
 module.exports = {
-        productsRouter,
-        stringHTMLProducts
-    }
+    productsRouter,
+    stringHTMLProducts
+}
