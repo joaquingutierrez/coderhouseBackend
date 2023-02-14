@@ -6,9 +6,9 @@ const productsResponse = JSON.parse(productsResponseJSON.innerHTML)
 const paginationFunction = (paginationParams) => {
     const {hasNextPage, hasPrevPage, page, totalPages, nextPage, prevPage} = paginationParams
     pagination.innerHTML = `
-        <a href="?page=${prevPage}"><button ${hasPrevPage ? "" : "disabled"}>Anterior</button></a>
+        <a onclick="window.location='?page=${prevPage}'+window.location.search;"><button ${hasPrevPage ? "" : "disabled"}>Anterior</button></a>
         ${totalPagesFunction(totalPages, page)}
-        <a href="?page=${nextPage}"><button ${hasNextPage ? "" : "disabled"}>Siguiente</button></a>
+        <a onclick="window.location='?page=${nextPage}'+window.location.search;"><button ${hasNextPage ? "" : "disabled"}>Siguiente</button></a>
     `
 }
 

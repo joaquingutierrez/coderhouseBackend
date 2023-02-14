@@ -14,6 +14,7 @@ const stringHTMLProducts = (products) => {
                 <h4>code: ${item.code}</h4>
                 <h4>category: ${item.category}</h4>
                 <a href="/api/products/${item._id}"><button>Más detalles</button><a>
+                <h4>category: ${item.stock}</h4>
             </div>
         `
     })
@@ -23,21 +24,28 @@ const stringHTMLProducts = (products) => {
 
 productsRouter.get('', async function (request, response) {
 
-    const { limit, page, sort, category } = request.query
+    const { limit, page, sort, category, stock } = request.query
     let productsResponse
+    let query = {}
+    if (sort) {
+        query.sort = { price: sort }
+    }
+    query.page = page || 1
+    query.limit = limit || 10
+    let filter = {}
+    if (category) {
+        filter.category = category
+    }
+    if (stock > 0) {
+        filter.stock = { $gte: stock }
+    } else if (parseInt(stock) === 0) {
+        filter.stock = 0
+    }
     try {
-        if (category) {
-            productsResponse = await productsModel.paginate(
-                { category: category },
-                { page: page || 1, limit: limit || 10, sort: { price: sort || null } }
-            )
-        }
-        else {
-            productsResponse = await productsModel.paginate(
-                {},
-                { page: page || 1, limit: limit || 10, sort: { price: sort || null } }
-            )
-        }
+        productsResponse = await productsModel.paginate(
+            filter,
+            query
+        )
         const products = productsResponse.docs
         const productsRenderList = stringHTMLProducts(products)
         const productsResponseJSON = JSON.stringify(productsResponse)
