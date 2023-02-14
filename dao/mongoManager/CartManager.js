@@ -59,6 +59,20 @@ class CartManager {
             }
         })
     }
+    async newCart(cartId, newCart) {
+        await cartsModel.updateOne({_id: cartId},
+            {
+                $set: {
+                    products: newCart
+                }
+            })
+    }
+    async newProductQuantity(cartId, productId, newQuantity) {
+        await cartsModel.updateOne({_id: cartId},
+            {
+                $set: {quantity: newQuantity}
+            })
+    }
 }
 
 const cartsList = new CartManager()
