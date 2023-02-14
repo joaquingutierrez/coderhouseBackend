@@ -60,7 +60,7 @@ class CartManager {
         })
     }
     async newCart(cartId, newCart) {
-        await cartsModel.updateOne({_id: cartId},
+        await cartsModel.updateOne({ _id: cartId },
             {
                 $set: {
                     products: newCart
@@ -68,11 +68,13 @@ class CartManager {
             })
     }
     async newProductQuantity(cartId, productId, newQuantity) {
-        await cartsModel.updateOne({_id: cartId},
+        await cartsModel.updateOne({ _id: cartId, "products.productId": productId },
             {
-                $set: {quantity: newQuantity}
-            })
+                $set: { "products.$.quantity": newQuantity }
+            }
+        )
     }
+
 }
 
 const cartsList = new CartManager()

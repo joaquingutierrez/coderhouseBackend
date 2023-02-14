@@ -45,24 +45,21 @@ cartsRouter.put("/:cId", async function (req, res) {
     //deberá actualizar el carrito con un arreglo de productos con el formato especificado arriba.
     const { cId } = req.params
     const newCart = await req.body
-    cartsList.newCart(cId, newCart)
+    await cartsList.newCart(cId, newCart)
     res.send("Carrito actualizado")
 })
-cartsRouter.put("/:cId/products/:pId ", async function (req, res) {
-    //..................................No Funciona
+cartsRouter.put("/:cId/products/:pId", async function (req, res) {
     //deberá poder actualizar SÓLO la cantidad de ejemplares del producto por cualquier cantidad pasada desde req.body
     const { cId, pId } = req.params
-    console.log(cId, pId);
-    const newQuantity = req.body
-    console.log(newQuantity);
+    const { newQuantity } = req.body
     cartsList.newProductQuantity(cId, pId, newQuantity)
     res.send("Cantidad actualizada")
 })
-cartsRouter.delete("/:cid", async function (req, res) {
+cartsRouter.delete("/:cId", async function (req, res) {
     //deberá eliminar todos los productos del carrito 
     const { cId } = req.params
-    cartsList.newCart(cId, [])
-    res.send("Productos borrados")
+    await cartsList.newCart(cId, [])
+    res.send("Productos borrados con éxito")
 })
 
 module.exports = {
