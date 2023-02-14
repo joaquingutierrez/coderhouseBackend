@@ -2,6 +2,24 @@ const express = require('express');
 const cartsRouter = express.Router();
 const { cartsList } = require("../dao/mongoManager/CartManager")
 
+const cartListRender = (cart) => {
+    let acum = ""
+    const products = cart.products
+    for (let i = 0; i < products.length; i++) {
+        acum +=`
+        <div class="card">
+            <h2>${products[i].productId.title}</h2>
+            <p>Descripcion: ${products[i].productId.description}</p>
+            <h4>Precio: $${products[i].productId.price}</h4>
+            <h4>Categoria: ${products[i].productId.category}</h4>
+            <h5>Stock: ${products[i].productId.stock}</h5>
+        </div>
+        `
+    }
+    return acum
+}
+
+
 cartsRouter.get('', async (req, res) => {
     try {
         const carts = await cartsList.getCarts()
@@ -25,7 +43,8 @@ cartsRouter.post("", async function (req, res) {
 cartsRouter.get("/:cId", async function (req, res) {
     const cId = req.params.cId;
     const cart = await cartsList.getCart(cId)
-    res.send(cart.products)
+    const cartListRenderHTML = cartListRender(cart)
+    res.render("cart", {cartListRenderHTML, cId})
 })
 cartsRouter.post("/:cId/product/:pId", async function (req, res) {
     const { cId, pId } = req.params;

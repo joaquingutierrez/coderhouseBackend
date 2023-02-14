@@ -1,4 +1,5 @@
 const { cartsModel } = require("./models/carts.model")
+const { productsModel } = require("./models/products.model")
 
 class CartManager {
     async getCarts() {
@@ -12,7 +13,7 @@ class CartManager {
     }
     async getCart(cartId) {
         try {
-            const cart = await cartsModel.findOne({ _id: cartId })
+            const cart = await cartsModel.findOne({ _id: cartId }).populate("products.productId")
             return cart
         }
         catch {
