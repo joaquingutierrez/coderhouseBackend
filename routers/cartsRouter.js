@@ -34,8 +34,12 @@ cartsRouter.post("/:cId/product/:pId", async function (req, res) {
     const cart = cartsList.getCart(cId)
     res.send(cart)
 })
-cartsRouter.delete("/:cid/products/:pid", async function (req,res) {
+cartsRouter.delete("/:cId/products/:pId", async function (req,res) {
     //deberá eliminar del carrito el producto seleccionado.
+    const {cId, pId} = req.params
+    cartsList.deleteProduct(cId, pId)
+    const cart = await cartsList.getCart(cId)
+    res.send(cart)
 })
 cartsRouter.put("/:cid", async function (req,res) {
     //deberá actualizar el carrito con un arreglo de productos con el formato especificado arriba.

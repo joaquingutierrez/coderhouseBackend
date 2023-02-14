@@ -31,7 +31,7 @@ class CartManager {
     }
     async addProduct(cartId, productId, quantity) {
         try {
-            const cart = await cartsModel.findOne({_id: cartId})
+            const cart = await cartsModel.findOne({ _id: cartId })
             if (productId && quantity) {
                 if (!(cart.products.some((item) => item.productId === productId))) {
                     cart.products.push({
@@ -51,6 +51,13 @@ class CartManager {
         catch (err) {
             throw err
         }
+    }
+    async deleteProduct(cartId, productId) {
+        await cartsModel.updateOne({ _id: cartId }, {
+            $pull: {
+                products: { productId: productId }
+            }
+        })
     }
 }
 
