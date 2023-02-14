@@ -47,12 +47,17 @@ productsRouter.get('', async function (request, response) {
             query
         )
         const products = productsResponse.docs
+        console.log(page);
         const productsRenderList = stringHTMLProducts(products)
         const productsResponseJSON = JSON.stringify(productsResponse)
-        response.render("home", {
-            productsRenderList,
-            productsResponseJSON
-        })
+        if (page <= productsResponse.totalPages && page >= 1 || page === undefined) {
+            response.render("home", {
+                productsRenderList,
+                productsResponseJSON
+            })
+        } else {
+            response.status(400).send("Pagina no encontrada")
+        }
     }
     catch {
         console.log("Error");

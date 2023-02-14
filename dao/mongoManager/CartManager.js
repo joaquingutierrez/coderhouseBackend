@@ -17,7 +17,7 @@ class CartManager {
             return cart
         }
         catch {
-            throw err
+            throw new Error("Carrito no encontrado")
         }
     }
     async addCart() {
