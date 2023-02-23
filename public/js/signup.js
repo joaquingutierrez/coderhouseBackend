@@ -24,7 +24,11 @@ signupButton.addEventListener("click", () => {
             })
         })
             .then((res) => res.json())
-            .then((data) => console.log(data))
+            .then((data) => {
+                if (data.message === "success") {
+                    window.location.href = "/login"
+                } 
+            })
             .catch((err) => console.log(err))
     }
 })
