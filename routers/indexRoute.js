@@ -3,7 +3,7 @@ const indexRouter = express.Router();
 
 
 indexRouter.get('', function (req, res) {
-    res.render('index')
+    res.redirect("/login")
 })
 
 

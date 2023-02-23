@@ -43,7 +43,7 @@ app.use(
 );
 
 
-app.use('/', loginRouter)
+app.use('/', indexRouter)
 app.use('/api/carts', cartsRouter);
 app.use('/api/products', productsRouter);
 app.use('/chat', chatRouter)

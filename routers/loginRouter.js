@@ -30,7 +30,6 @@ loginRouter.post("", async function (req, res) {
     try {
         if (user) {
             req.session.user = user
-            console.log(req.session.user)
             res.status(200).json({message: "success", data: user})
         } else {
             res.status(404).json({message: "error", data: "Usuario no encontrado"})

@@ -47,7 +47,6 @@ productsRouter.get('', async function (request, response) {
             query
         )
         const products = productsResponse.docs
-        console.log(page);
         const productsRenderList = stringHTMLProducts(products)
         const productsResponseJSON = JSON.stringify(productsResponse)
         if (page <= productsResponse.totalPages && page >= 1 || page === undefined) {
