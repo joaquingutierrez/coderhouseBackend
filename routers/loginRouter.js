@@ -2,6 +2,18 @@ const express = require('express');
 const loginRouter = express.Router();
 const {userModel} = require("../dao/mongoManager/models/users.model")
 
+
+const coderAdmin = {
+    first_name: "Coder",
+    last_name: "House",
+    email: "adminCoder@coder.com",
+    password: "adminCod3r123",
+    rol: "Admin",
+    age: 0
+}
+
+
+
 loginRouter.get("", function (req, res) {
     req.session.user ? 
     res.redirect("/profile") :
@@ -9,8 +21,13 @@ loginRouter.get("", function (req, res) {
 })
 loginRouter.post("", async function (req, res) {
     const { email, password } = req.body
+    let user
+    if (email === coderAdmin.email && password === coderAdmin.password) {
+        user = coderAdmin
+    } else {
+        user = await userModel.findOne({email, password})
+    }
     try {
-        const user = await userModel.findOne({email, password})
         if (user) {
             req.session.user = user
             console.log(req.session.user)

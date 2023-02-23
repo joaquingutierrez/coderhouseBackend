@@ -7,8 +7,9 @@ signupRouter.get("", function (req, res) {
 })
 signupRouter.post("", async function (req, res) {
     const { first_name, last_name, age, email, password } = req.body
+    const rol = "User"
     try {
-        const newUser = await userModel.create({first_name, last_name, age, email, password})
+        const newUser = await userModel.create({first_name, last_name, age, email, password, rol})
         res.status(201).json({message: "success", data: newUser})
     }
     catch (err) {
