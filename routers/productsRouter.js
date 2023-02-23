@@ -52,11 +52,28 @@ productsRouter.get('', async function (request, response) {
         const productsResponseJSON = JSON.stringify(productsResponse)
         if (page <= productsResponse.totalPages && page >= 1 || page === undefined) {
             const user = request.session.user
-            response.render("home", {
-                productsRenderList,
-                productsResponseJSON,
-                user
-            })
+            const usersButtonsLoginSignup = `
+            <a href="/login"><button id="loginProfile">Login</button></a>
+            <a href="/signup"><button id="signup">Signup</button></a>
+            `
+            const usersButtonsProfileLogout = `
+            <a href="/profile"><button id="loginProfile">Profile</button></a>
+            <a href="/logout"><button id="signup">Logout</button></a>
+            `
+            if (user) {
+                response.render("home", {
+                    productsRenderList,
+                    productsResponseJSON,
+                    user,
+                    usersButtonsProfileLogout
+                })
+            } else {
+                response.render("home", {
+                    productsRenderList,
+                    productsResponseJSON,
+                    usersButtonsLoginSignup
+                })
+            }
         } else {
             response.status(400).send("Pagina no encontrada")
         }
