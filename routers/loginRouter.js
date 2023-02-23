@@ -3,6 +3,8 @@ const loginRouter = express.Router();
 const {userModel} = require("../dao/mongoManager/models/users.model")
 
 loginRouter.get("", function (req, res) {
+    req.session.user ? 
+    res.redirect("/profile") :
     res.render("login")
 })
 loginRouter.post("", async function (req, res) {

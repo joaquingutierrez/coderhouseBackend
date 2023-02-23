@@ -51,9 +51,11 @@ productsRouter.get('', async function (request, response) {
         const productsRenderList = stringHTMLProducts(products)
         const productsResponseJSON = JSON.stringify(productsResponse)
         if (page <= productsResponse.totalPages && page >= 1 || page === undefined) {
+            const user = request.session.user
             response.render("home", {
                 productsRenderList,
-                productsResponseJSON
+                productsResponseJSON,
+                user
             })
         } else {
             response.status(400).send("Pagina no encontrada")

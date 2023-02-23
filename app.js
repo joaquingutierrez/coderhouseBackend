@@ -9,11 +9,13 @@ const { chatRouter } = require("./routers/chatRouter")
 const { loginRouter } = require("./routers/loginRouter")
 const { signupRouter } = require("./routers/signupRouter")
 const { profileRouter } = require("./routers/profileRouter")
+const { logoutRouter } = require("./routers/logoutRouter")
 const { engine } = require('express-handlebars')
 const { Server } = require('socket.io')
 const { stringHTMLProducts } = require('./routers/productsRouter')
 const { default: mongoose } = require('mongoose')
 const { messagesModal } = require("./dao/mongoManager/models/messages.model")
+const session = require('express-session')
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -32,13 +34,23 @@ mongoose.connect(`mongodb+srv://${process.env.USER_MONGO}:${process.env.PASSWORD
     }
 })
 
+app.use(
+    session({
+        secret: "coderhouse",
+        resave: true,
+        saveUninitialized: true
+    })
+);
+
+
 app.use('/', indexRouter)
 app.use('/api/carts', cartsRouter);
 app.use('/api/products', productsRouter);
 app.use('/chat', chatRouter)
 app.use('/login', loginRouter)
 app.use('/signup', signupRouter)
-app.use('profile', profileRouter)
+app.use('/profile', profileRouter)
+app.use('/logout', logoutRouter)
 
 const PORT = 8080
 const httpServer = app.listen(PORT)
