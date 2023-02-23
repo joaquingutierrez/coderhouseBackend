@@ -6,6 +6,9 @@ const { cartsRouter } = require('./routers/cartsRouter')
 const { productsRouter } = require('./routers/productsRouter')
 const { indexRouter } = require('./routers/indexRoute')
 const { chatRouter } = require("./routers/chatRouter")
+const { loginRouter } = require("./routers/loginRouter")
+const { signupRouter } = require("./routers/signupRouter")
+const { profileRouter } = require("./routers/profileRouter")
 const { engine } = require('express-handlebars')
 const { Server } = require('socket.io')
 const { stringHTMLProducts } = require('./routers/productsRouter')
@@ -33,6 +36,9 @@ app.use('/', indexRouter)
 app.use('/api/carts', cartsRouter);
 app.use('/api/products', productsRouter);
 app.use('/chat', chatRouter)
+app.use('/login', loginRouter)
+app.use('/signup', signupRouter)
+app.use('profile', profileRouter)
 
 const PORT = 8080
 const httpServer = app.listen(PORT)
