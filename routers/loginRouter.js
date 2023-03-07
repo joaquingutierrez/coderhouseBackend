@@ -1,6 +1,7 @@
 const express = require('express');
 const loginRouter = express.Router();
 const {userModel} = require("../dao/mongoManager/models/users.model")
+const { isValidPassword } = require("../utils")
 
 
 const coderAdmin = {
@@ -25,10 +26,10 @@ loginRouter.post("", async function (req, res) {
     if (email === coderAdmin.email && password === coderAdmin.password) {
         user = coderAdmin
     } else {
-        user = await userModel.findOne({email, password})
+        user = await userModel.findOne({email})
     }
     try {
-        if (user) {
+        if (await isValidPassword(password, user)) {
             req.session.user = user
             res.status(200).json({message: "success", data: user})
         } else {
