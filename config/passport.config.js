@@ -1,7 +1,9 @@
 const passport = require("passport")
 const local = require("passport-local")
+const GitHubStrategy = require("passport-github2")
 const { userModel } = require('../dao/mongoManager/models/users.model');
 const { passwordHash, isValidPassword } = require("../utils")
+require('dotenv').config()
 
 const LocalStrategy = local.Strategy
 const initializePassport = () => {
@@ -48,6 +50,33 @@ const initializePassport = () => {
             }
         }
     ))
+    passport.use('github', new GitHubStrategy({
+        clientID: process.env.GITHUB_CLIENT_ID,
+        clientSecret: process.env.GITHUB_CLIENT_SECRET,
+        callbackURL: process.env.GITHUB_CALLBACKURL
+    }, async (accessToken, refreshToken, profile, done) => {
+        try {
+            let user = await userModel.findOne({ email: profile._json.email })
+            if (!user) {
+                let newUser = {
+                    rol: "User GitHub",
+                    first_name: profile._json.name,
+                    last_name: '',
+                    email: profile._json.email,
+                    password: '',
+                    age: 0,
+                }
+                let result = await userModel.create(newUser)
+                done(null, result)
+            } else {
+                done(null, user)
+            }
+        } catch (error) {
+            return done("Error en estrategia de login: " + error)
+        }
+    }
+    ))
+
     passport.serializeUser((user, done) => {
         done(null, user._id)
     })
@@ -55,7 +84,10 @@ const initializePassport = () => {
         let user = await userModel.findById(id)
         done(null, user)
     })
+
 }
+
+
 module.exports = {
     initializePassport
 }

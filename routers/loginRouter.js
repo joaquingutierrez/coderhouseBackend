@@ -59,6 +59,19 @@ loginRouter.get("/faillogin", async (req, res) => {
     res.send({ error: "Failed" })
 })
 
+
+//Login con Github
+
+loginRouter.get('/github', passport.authenticate('github', {scope:['user:email']}), (req, res)=>{})
+
+// Login  exitoso.
+loginRouter.get('/githubcallback', passport.authenticate('github', {failureRedirect:'/login'}), (req, res)=>{
+    req.session.user = req.user;
+    res.redirect('/api/products');
+})
+
+
+
 module.exports = {
     loginRouter
 }
