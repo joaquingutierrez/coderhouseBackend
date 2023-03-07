@@ -1,6 +1,7 @@
 const express = require('express');
+const passport = require('passport');
 const loginRouter = express.Router();
-const {userModel} = require("../dao/mongoManager/models/users.model")
+const { userModel } = require("../dao/mongoManager/models/users.model")
 const { isValidPassword } = require("../utils")
 
 
@@ -16,11 +17,11 @@ const coderAdmin = {
 
 
 loginRouter.get("", function (req, res) {
-    req.session.user ? 
-    res.redirect("/profile") :
-    res.render("login")
+    req.session.user ?
+        res.redirect("/profile") :
+        res.render("login")
 })
-loginRouter.post("", async function (req, res) {
+/* loginRouter.post("", async function (req, res) {
     const { email, password } = req.body
     let user
     if (email === coderAdmin.email && password === coderAdmin.password) {
@@ -38,6 +39,24 @@ loginRouter.post("", async function (req, res) {
     } catch(error) {
         res.status(500).json({error: error.message})
     }
+}) */
+
+
+loginRouter.post("", passport.authenticate("login", { failureRedirect: "/login/faillogin" }), async (req, res) => {
+    if (!req.user) return res.status(400).send({ status: "error", error: "Invalid credentials" })
+    req.session.user = {
+        rol: req.user.rol,
+        first_name: req.user.first_name,
+        last_name: req.user.last_name,
+        age: req.user.age,
+        email: req.user.email
+    }
+    res.status(200).json({message: "success", data: req.user})
+})
+
+loginRouter.get("/faillogin", async (req, res) => {
+    console.log("Failed Strategy")
+    res.send({ error: "Failed" })
 })
 
 module.exports = {

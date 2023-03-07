@@ -20,7 +20,7 @@ const initializePassport = () => {
                     last_name,
                     email,
                     age,
-                    password: passwordHash(password)
+                    password: await passwordHash(password)
                 }
                 let result = await userModel.create(newUser)
                 return done(null, result)
@@ -48,9 +48,14 @@ const initializePassport = () => {
             }
         }
     ))
-
-    module.exports = {
-        initializePassport
-    }
-
+    passport.serializeUser((user, done) => {
+        done(null, user._id)
+    })
+    passport.deserializeUser(async (id, done) => {
+        let user = await userModel.findById(id)
+        done(null, user)
+    })
+}
+module.exports = {
+    initializePassport
 }

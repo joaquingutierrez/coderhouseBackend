@@ -16,6 +16,8 @@ const { stringHTMLProducts } = require('./routers/productsRouter')
 const { default: mongoose } = require('mongoose')
 const { messagesModal } = require("./dao/mongoManager/models/messages.model")
 const session = require('express-session')
+const passport = require('passport')
+const { initializePassport } = require('./config/passport.config')
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -25,6 +27,9 @@ app.set('view engine', 'handlebars');
 app.set('views', __dirname + '/views');
 
 app.use(express.static(__dirname + "/public"));
+
+initializePassport()
+app.use(passport.initialize())
 
 mongoose.connect(`mongodb+srv://${process.env.USER_MONGO}:${process.env.PASSWORD_MONGO}@cluster0.i34mf4h.mongodb.net/${process.env.DB_MONGO}?retryWrites=true&w=majority`, (err) => {
     if (err) {
