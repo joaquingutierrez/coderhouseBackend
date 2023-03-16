@@ -54,7 +54,7 @@ app.use('/api/products', productsRouter);
 app.use('/chat', chatRouter)
 app.use('/login', loginRouter)
 app.use('/signup', signupRouter)
-app.use('/profile', profileRouter)
+app.use('/api/session/current', profileRouter)
 app.use('/logout', logoutRouter)
 
 const PORT = 8080

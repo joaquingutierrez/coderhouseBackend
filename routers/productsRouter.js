@@ -56,7 +56,7 @@ productsRouter.get('', async function (request, response) {
             <a href="/signup"><button id="signup">Signup</button></a>
             `
             const usersButtonsProfileLogout = `
-            <a href="/profile"><button id="loginProfile">Profile</button></a>
+            <a href="/api/session/current"><button id="loginProfile">Profile</button></a>
             <a href="/logout"><button id="signup">Logout</button></a>
             `
             if (user) {

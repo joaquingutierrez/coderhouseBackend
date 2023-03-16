@@ -18,7 +18,7 @@ const coderAdmin = {
 
 loginRouter.get("", function (req, res) {
     req.session.user ?
-        res.redirect("/profile") :
+        res.redirect("/api/session/current") :
         res.render("login")
 })
 /* loginRouter.post("", async function (req, res) {
