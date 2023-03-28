@@ -1,10 +1,9 @@
 const express = require('express');
 const chatRouter = express.Router();
+const {renderChat} = require("../controller/chat.controller")
 
 
-chatRouter.get('', async (req, res) => {
-    res.render("chat", { title: "Chat" })
-})
+chatRouter.get('', renderChat)
 
 module.exports = {
     chatRouter

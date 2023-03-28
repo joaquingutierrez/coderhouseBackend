@@ -1,10 +1,8 @@
 const express = require('express');
 const profileRouter = express.Router();
+const {profile} = require("../controller/profile.controller")
 
-profileRouter.get("", function (req, res) {
-    const user = req.session.user
-    res.render("profile", { user })
-})
+profileRouter.get("", profile)
 
 module.exports = {
     profileRouter
