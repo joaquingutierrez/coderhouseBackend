@@ -1,20 +1,11 @@
-const coderAdmin = {
-    first_name: "Coder",
-    last_name: "House",
-    email: "adminCoder@coder.com",
-    password: "adminCod3r123",
-    rol: "Admin",
-    age: 0
-}
-
 const redirectIfLogin = function (req, res) {
     req.session.user ?
         res.redirect("/api/session/current") :
         res.render("login")
 }
 
-const login = () => {
-    passport.authenticate("login", { failureRedirect: "/login/faillogin" }), async (req, res) => {
+const login = async (req, res) => {
+    try {
         if (!req.user) return res.status(400).send({ status: "error", error: "Invalid credentials" })
         req.session.user = {
             rol: req.user.rol,
@@ -24,6 +15,9 @@ const login = () => {
             email: req.user.email
         }
         res.status(200).json({ message: "success", data: req.user })
+    }
+    catch (err) {
+        console.log(err)
     }
 }
 

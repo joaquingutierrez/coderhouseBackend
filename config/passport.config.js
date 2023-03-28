@@ -37,7 +37,19 @@ const initializePassport = () => {
     passport.use("login", new LocalStrategy(
         { usernameField: "email" }, async (username, password, done) => {
             try {
+                if ((username == process.env.ADMIN_EMAIL) && (password == process.env.ADMIN_PASSWORD)) {
+                    const user = {
+                        _id: "ADMIN_0000",
+                        email: "Secreto",
+                        rol: "ADMIN",
+                        first_name: "Coder",
+                        last_name: "Admin",
+                        age: 0
+                    }
+                    return done(null, user)
+                }
                 const user = await userModel.findOne({ email: username })
+                console.log(user);
                 if (!user) {
                     console.log("User doesn't exist")
                     return done(null, false)

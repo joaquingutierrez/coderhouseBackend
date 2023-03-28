@@ -1,11 +1,11 @@
 const express = require('express');
-const passport = require('passport');
 const loginRouter = express.Router();
+const passport = require('passport');
 const { redirectIfLogin, login, failLogin, loginGitHubSuccess } = require("../controller/login.controller")
 
 
 loginRouter.get("", redirectIfLogin)
-loginRouter.post("", login)
+loginRouter.post("", passport.authenticate("login", { failureRedirect: "/login/faillogin" }), login)
 loginRouter.get("/faillogin", failLogin)
 
 //Login con Github
