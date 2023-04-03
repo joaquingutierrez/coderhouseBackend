@@ -1,21 +1,12 @@
 [
 	{
-		"first_name": "Joaquin",
-		"last_name": "Gutierrez",
-		"email": "joaquinguty@gmail.com",
-		"age": "27",
-		"password": "$2b$10$xkSfp4Pi3GHEwgaIP1G5iOSHGoubnKv.NePTnTmWwSKLy0ZOaFQdW",
-		"rol": "User",
-		"id": 1
-	},
-	{
 		"first_name": "Lucas",
 		"last_name": "gutierrez",
 		"email": "lucasguty@gmail.com",
 		"age": "26",
 		"password": "$2b$10$I3WkCbyddoRuDxKUpSEqEu360h67jpi5q/G6DqtXn61USqivR8ffq",
 		"rol": "User",
-		"id": 2
+		"id": 1
 	},
 	{
 		"first_name": "Joaquin",
@@ -23,6 +14,15 @@
 		"email": "joaquindraguty@gmail.com",
 		"age": "27",
 		"password": "$2b$10$8wFe1UUwZh2jjZmpkWNFKOhp6ss2zuY0KAK61pHPzuIH8fb9KzG0q",
+		"rol": "User",
+		"id": 2
+	},
+	{
+		"first_name": "Joaquin Gutierrez",
+		"last_name": "***",
+		"email": "joaquinguty@gmail.com",
+		"password": "***",
+		"age": 1,
 		"rol": "User",
 		"id": 3
 	}

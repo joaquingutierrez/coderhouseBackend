@@ -3,7 +3,7 @@ const local = require("passport-local")
 const GitHubStrategy = require("passport-github2")
 const { passwordHash, isValidPassword } = require("../utils")
 require('dotenv').config()
-const {userList} = require("../dao/fsManager/UserManager")
+const { userList } = require("../dao/fsManager/UserManager")
 
 const LocalStrategy = local.Strategy
 const initializePassport = () => {
@@ -39,7 +39,7 @@ const initializePassport = () => {
             try {
                 if ((username == process.env.ADMIN_EMAIL) && (password == process.env.ADMIN_PASSWORD)) {
                     const user = {
-                        _id: "ADMIN_0000",
+                        id: "ADMIN_0000",
                         email: "Secreto",
                         rol: "ADMIN",
                         first_name: "Coder",
@@ -66,32 +66,23 @@ const initializePassport = () => {
         clientSecret: process.env.GITHUB_CLIENT_SECRET,
         callbackURL: process.env.GITHUB_CALLBACKURL
     }, async (accessToken, refreshToken, profile, done) => {
-        if (process.env.PERSISTENCE === "MONGO") {
-            try {
-                let user = await userList.findUserByEmail({ email: profile._json.email })
-                if (!user) {
-                    let newUser = {
-                        rol: "User GitHub",
-                        first_name: profile._json.name,
-                        last_name: '',
-                        email: profile._json.email,
-                        password: '',
-                        age: 0,
-                    }
-                    let result = await userList.addUser(newUser)
-                    done(null, result)
-                } else {
-                    done(null, user)
+        try {
+            let user = await userList.getUserByEmail(profile._json.email)
+            if (user === undefined) {
+                let newUser = {
+                    first_name: profile._json.name,
+                    last_name: '***',
+                    email: profile._json.email,
+                    password: '***',
+                    age: 1,
                 }
-            } catch (error) {
-                return done("Error en estrategia de login: " + error)
+                let result = userList.addUser(newUser)
+                done(null, result)
+            } else {
+                done(null, user)
             }
-        } else {
-            try {
-                
-            } catch (error) {
-                
-            }
+        } catch (error) {
+            return done("Error en estrategia de login: " + error)
         }
     }
     ))

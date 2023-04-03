@@ -8,7 +8,7 @@
 		"stock": 25,
 		"status": true,
 		"category": "1",
-		"id": 1
+		"_id": 1
 	},
 	{
 		"title": "producto prueba",
@@ -19,7 +19,7 @@
 		"stock": 25,
 		"status": true,
 		"category": "1",
-		"id": 2
+		"_id": 2
 	},
 	{
 		"title": "producto prueba",
@@ -30,7 +30,7 @@
 		"stock": 25,
 		"status": true,
 		"category": "1",
-		"id": 3
+		"_id": 3
 	},
 	{
 		"title": "producto prueba",
@@ -41,7 +41,7 @@
 		"stock": 25,
 		"status": true,
 		"category": "2",
-		"id": 4
+		"_id": 4
 	},
 	{
 		"title": "producto prueba",
@@ -52,7 +52,7 @@
 		"stock": 25,
 		"status": true,
 		"category": "2",
-		"id": 5
+		"_id": 5
 	},
 	{
 		"title": "producto prueba",
@@ -63,7 +63,7 @@
 		"stock": 25,
 		"status": true,
 		"category": "2",
-		"id": 6
+		"_id": 6
 	},
 	{
 		"title": "producto prueba",
@@ -74,7 +74,7 @@
 		"stock": 25,
 		"status": true,
 		"category": "3",
-		"id": 7
+		"_id": 7
 	},
 	{
 		"title": "producto prueba",
@@ -85,7 +85,7 @@
 		"stock": 25,
 		"status": true,
 		"category": "3",
-		"id": 8
+		"_id": 8
 	},
 	{
 		"title": "producto prueba",
@@ -96,7 +96,7 @@
 		"stock": 25,
 		"status": true,
 		"category": "3",
-		"id": 9
+		"_id": 9
 	},
 	{
 		"title": "producto prueba",
@@ -107,6 +107,6 @@
 		"stock": 25,
 		"status": true,
 		"category": "4",
-		"id": 10
+		"_id": 10
 	}
 ]

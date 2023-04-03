@@ -87,12 +87,6 @@ const initializePassport = () => {
             } catch (error) {
                 return done("Error en estrategia de login: " + error)
             }
-        } else {
-            try {
-                
-            } catch (error) {
-                
-            }
         }
     }
     ))

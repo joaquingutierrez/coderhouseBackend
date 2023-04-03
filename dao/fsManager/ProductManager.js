@@ -19,7 +19,7 @@ class ProductManager {
                 product = {
                     ...product,
                     status: true,
-                    id: ProductManager.id
+                    _id: ProductManager.id
                 };
                 this.products.push(product)
                 return this.writeProductsList();
@@ -42,9 +42,11 @@ class ProductManager {
     }
     getProductById(id) {
         this.getProducts();
-        const productFiltered = (this.products.find((item) => item.id === id))
-        if (productFiltered) {
-            return productFiltered
+        const productFiltered = (this.products.find((item) => item._id == id))
+        const productArrayFiltered = []
+        productArrayFiltered.push(productFiltered)
+        if (productFiltered !== undefined) {
+            return productArrayFiltered
         }
         throw new Error('Error: Product not found')
     }
@@ -65,10 +67,10 @@ class ProductManager {
     }
 }
 
-//test
-const testList = new ProductManager('./data_base/testList.json')
+
+const productsList = new ProductManager('./data_base/productsList.json')
 
 
 module.exports = {
-    testList
+    productsList
 }

@@ -1,6 +1,9 @@
-const { productsModel } = require('../dao/mongoManager/models/products.model');
 const { productsList } = require("../dao/factory")
+require('dotenv').config()
 
+if (process.env.PERSISTENCE === "MONGO") {
+    var { productsModel } = require('../dao/mongoManager/models/products.model');
+}
 
 const stringHTMLProducts = (products) => {
     let productsRenderList = ""
@@ -40,44 +43,74 @@ const getAllProducts = async (request, response) => {
     } else if (parseInt(stock) === 0) {
         filter.stock = 0
     }
-    try {
-        productsResponse = await productsModel.paginate(
-            filter,
-            query
-        )
-        const products = productsResponse.docs
+    if (process.env.PERSISTENCE === "MONGO") {
+
+        try {
+            productsResponse = await productsModel.paginate(
+                filter,
+                query
+            )
+            const products = productsResponse.docs
+            const productsRenderList = stringHTMLProducts(products)
+            const productsResponseJSON = JSON.stringify(productsResponse)
+            if (page <= productsResponse.totalPages && page >= 1 || page === undefined) {
+                const user = request.session.user
+                const usersButtonsLoginSignup = `
+                <a href="/login"><button id="loginProfile">Login</button></a>
+                <a href="/signup"><button id="signup">Signup</button></a>
+                `
+                const usersButtonsProfileLogout = `
+                <a href="/api/session/current"><button id="loginProfile">Profile</button></a>
+                <a href="/logout"><button id="signup">Logout</button></a>
+                `
+                if (user) {
+                    response.render("home", {
+                        productsRenderList,
+                        productsResponseJSON,
+                        user,
+                        usersButtonsProfileLogout
+                    })
+                } else {
+                    response.render("home", {
+                        productsRenderList,
+                        productsResponseJSON,
+                        usersButtonsLoginSignup
+                    })
+                }
+            } else {
+                response.status(400).send("Pagina no encontrada")
+            }
+        }
+        catch (err) {
+            console.log("Error", err);
+        }
+    } else {
+        const products = productsList.getProducts()
         const productsRenderList = stringHTMLProducts(products)
         const productsResponseJSON = JSON.stringify(productsResponse)
-        if (page <= productsResponse.totalPages && page >= 1 || page === undefined) {
-            const user = request.session.user
-            const usersButtonsLoginSignup = `
-            <a href="/login"><button id="loginProfile">Login</button></a>
-            <a href="/signup"><button id="signup">Signup</button></a>
-            `
-            const usersButtonsProfileLogout = `
-            <a href="/api/session/current"><button id="loginProfile">Profile</button></a>
-            <a href="/logout"><button id="signup">Logout</button></a>
-            `
-            if (user) {
-                response.render("home", {
-                    productsRenderList,
-                    productsResponseJSON,
-                    user,
-                    usersButtonsProfileLogout
-                })
-            } else {
-                response.render("home", {
-                    productsRenderList,
-                    productsResponseJSON,
-                    usersButtonsLoginSignup
-                })
-            }
+        const user = request.session.user
+        const usersButtonsLoginSignup = `
+                <a href="/login"><button id="loginProfile">Login</button></a>
+                <a href="/signup"><button id="signup">Signup</button></a>
+                `
+        const usersButtonsProfileLogout = `
+                <a href="/api/session/current"><button id="loginProfile">Profile</button></a>
+                <a href="/logout"><button id="signup">Logout</button></a>
+                `
+        if (user) {
+            response.render("home", {
+                productsRenderList,
+                productsResponseJSON,
+                user,
+                usersButtonsProfileLogout
+            })
         } else {
-            response.status(400).send("Pagina no encontrada")
+            response.render("home", {
+                productsRenderList,
+                productsResponseJSON,
+                usersButtonsLoginSignup
+            })
         }
-    }
-    catch (err) {
-        console.log("Error", err);
     }
 }
 
