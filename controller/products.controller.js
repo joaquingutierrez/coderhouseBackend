@@ -1,5 +1,5 @@
 const { productsModel } = require('../dao/mongoManager/models/products.model');
-const { productsList } = require("../dao/mongoManager/ProductManager")
+const { productsList } = require("../dao/factory")
 
 
 const stringHTMLProducts = (products) => {

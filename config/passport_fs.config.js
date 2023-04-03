@@ -1,9 +1,9 @@
 const passport = require("passport")
 const local = require("passport-local")
 const GitHubStrategy = require("passport-github2")
-const { userModel } = require('../dao/mongoManager/models/users.model');
 const { passwordHash, isValidPassword } = require("../utils")
 require('dotenv').config()
+const {userList} = require("../dao/fsManager/UserManager")
 
 const LocalStrategy = local.Strategy
 const initializePassport = () => {
@@ -12,8 +12,8 @@ const initializePassport = () => {
         { passReqToCallback: true, usernameField: "email" }, async (req, username, password, done) => {
             const { first_name, last_name, age, email } = req.body
             try {
-                let user = await userModel.findOne({ email: username })
-                if (user) {
+                let user = await userList.getUserByEmail({ email: username })
+                if (user !== undefined) {
                     console.log("User already exists")
                     return done(null, false)
                 }
@@ -24,7 +24,7 @@ const initializePassport = () => {
                     age,
                     password: await passwordHash(password)
                 }
-                let result = await userModel.create(newUser)
+                let result = userList.addUser(newUser)
                 return done(null, result)
             }
             catch (err) {
@@ -48,9 +48,8 @@ const initializePassport = () => {
                     }
                     return done(null, user)
                 }
-                const user = await userModel.findOne({ email: username })
-                console.log(user);
-                if (!user) {
+                let user = await userList.getUserByEmail(username)
+                if (user === undefined) {
                     console.log("User doesn't exist")
                     return done(null, false)
                 }
@@ -69,7 +68,7 @@ const initializePassport = () => {
     }, async (accessToken, refreshToken, profile, done) => {
         if (process.env.PERSISTENCE === "MONGO") {
             try {
-                let user = await userModel.findOne({ email: profile._json.email })
+                let user = await userList.findUserByEmail({ email: profile._json.email })
                 if (!user) {
                     let newUser = {
                         rol: "User GitHub",
@@ -79,7 +78,7 @@ const initializePassport = () => {
                         password: '',
                         age: 0,
                     }
-                    let result = await userModel.create(newUser)
+                    let result = await userList.addUser(newUser)
                     done(null, result)
                 } else {
                     done(null, user)
@@ -98,10 +97,10 @@ const initializePassport = () => {
     ))
 
     passport.serializeUser((user, done) => {
-        done(null, user._id)
+        done(null, user.id)
     })
     passport.deserializeUser(async (id, done) => {
-        let user = await userModel.findById(id)
+        let user = await userList.findById(id)
         done(null, user)
     })
 

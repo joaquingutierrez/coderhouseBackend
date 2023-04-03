@@ -1,5 +1,4 @@
 const { cartsModel } = require("./models/carts.model")
-const { productsModel } = require("./models/products.model")
 
 class CartManager {
     async getCarts() {

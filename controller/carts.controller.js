@@ -1,4 +1,4 @@
-const { cartsList } = require("../dao/mongoManager/CartManager")
+const { cartsList } = require("../dao/factory")
 
 const cartListRender = (cart) => {
     let acum = ""

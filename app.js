@@ -1,6 +1,6 @@
 const express = require('express')
 require('dotenv').config()
-const { productsList } = require('./dao/mongoManager/ProductManager')
+const { productsList } = require('./dao/factory')
 const app = express()
 const { cartsRouter } = require('./routers/cartsRouter')
 const { productsRouter } = require('./routers/productsRouter')
@@ -13,11 +13,10 @@ const { logoutRouter } = require("./routers/logoutRouter")
 const { engine } = require('express-handlebars')
 const { Server } = require('socket.io')
 const { stringHTMLProducts } = require('./controller/products.controller')
-const { default: mongoose } = require('mongoose')
 const { messagesModal } = require("./dao/mongoManager/models/messages.model")
 const session = require('express-session')
 const passport = require('passport')
-const { initializePassport } = require('./config/passport.config')
+const { initializePassport } = require('./dao/factory')
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -31,13 +30,6 @@ app.use(express.static(__dirname + "/public"));
 initializePassport()
 app.use(passport.initialize())
 
-mongoose.connect(`mongodb+srv://${process.env.USER_MONGO}:${process.env.PASSWORD_MONGO}@cluster0.i34mf4h.mongodb.net/${process.env.DB_MONGO}?retryWrites=true&w=majority`, (err) => {
-    if (err) {
-        console.log("Error al conectarse a la Base de Datos", err);
-    } else {
-        console.log("Conectado con exito a la base de datos");
-    }
-})
 
 app.use(
     session({
