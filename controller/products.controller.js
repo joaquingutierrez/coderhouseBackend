@@ -117,8 +117,8 @@ const getAllProducts = async (request, response) => {
 const getMyProduct = async (req, res) => {
     const { pId } = req.params;
     const productId = await productsList.getProductById(pId)
-    const { title, description, price, thumbnail, stock, category } = productId[0]
-    res.render("product", { title, description, price, thumbnail, stock, category })
+    const { title, description, price, thumbnail, stock, category, id } = productId[0]
+    res.render("product", { title, description, price, thumbnail, stock, category, id })
 }
 
 const newProduct = async (req, res) => {

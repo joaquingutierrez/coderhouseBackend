@@ -6,8 +6,8 @@ const {auth} = require("../middleware/auth")
 productsRouter.get('', getAllProducts)
 productsRouter.get('/:pId', getMyProduct)
 productsRouter.post('', auth, newProduct)
-productsRouter.delete("/:pId", deleteMyProduct)
-productsRouter.put("/:pId", updateMyProduct)
+productsRouter.delete("/:pId", auth, deleteMyProduct)
+productsRouter.put("/:pId", auth, updateMyProduct)
 
 
 module.exports = {

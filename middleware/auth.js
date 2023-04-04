@@ -1,5 +1,5 @@
 const auth = (req, res, next) => {
-    const user = req.session.user
+    const user = req.session.user || "none"
     if (user.rol === "ADMIN") {
         console.log("autorizado")
         next()
