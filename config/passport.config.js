@@ -49,7 +49,6 @@ const initializePassport = () => {
                     return done(null, user)
                 }
                 const user = await userModel.findOne({ email: username })
-                console.log(user);
                 if (!user) {
                     console.log("User doesn't exist")
                     return done(null, false)

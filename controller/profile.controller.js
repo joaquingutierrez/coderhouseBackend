@@ -1,5 +1,7 @@
+const {UserDto} = require("../dao/dto/user.dto")
+
 const profile = function (req, res) {
-    const user = req.session.user
+    const user = new UserDto(req.session.user)
     res.render("profile", { user })
 }
 

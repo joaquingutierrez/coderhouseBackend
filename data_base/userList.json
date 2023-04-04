@@ -25,5 +25,14 @@
 		"age": 1,
 		"rol": "User",
 		"id": 3
+	},
+	{
+		"first_name": "Lucas",
+		"last_name": "gutierrez",
+		"email": "lucasguty",
+		"age": "26",
+		"password": "$2b$10$oubrAAyFfRktul8IuwLcAeZYqDXDcNVKB0S1BUq1N1bp7pVEOQEAS",
+		"rol": "User",
+		"id": 4
 	}
 ]
