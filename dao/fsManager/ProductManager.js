@@ -22,7 +22,8 @@ class ProductManager {
                     _id: ProductManager.id
                 };
                 this.products.push(product)
-                return this.writeProductsList();
+                this.writeProductsList();
+                return "Producto agregado satisfactoriamente"
 
             }
             throw new Error('The product already exists in the list');

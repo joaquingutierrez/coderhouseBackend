@@ -21,10 +21,11 @@ class ProductManager {
         try {
             const newProduct = new productsModel(product)
             await newProduct.save()
-            return
+            return "Producto agregado satisfactoriamente"
         }
         catch {
             console.log("El producto ya existe o le faltan propiedades");
+            return "El producto ya existe o le faltan propiedades"
         }
     }
     async deleteProduct(productId) {

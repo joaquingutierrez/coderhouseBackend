@@ -123,8 +123,8 @@ const getMyProduct = async (req, res) => {
 
 const newProduct = async (req, res) => {
     const newProduct = await req.body;
-    productsList.addProduct(newProduct)
-    res.send('Producto agregado satisfactoriamente')
+    const message = await productsList.addProduct(newProduct)
+    res.send(message)
 }
 
 const deleteMyProduct = (req, res) => {
