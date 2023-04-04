@@ -1,4 +1,5 @@
 const { cartsList } = require("../dao/factory")
+const { userManager } = require("../dao/mongoManager/UserManager")
 
 const cartListRender = (cart) => {
     let acum = ""
@@ -22,6 +23,10 @@ const cartListRender = (cart) => {
 const getAllCarts = async (req, res) => {
     try {
         const carts = await cartsList.getCarts()
+        const cart = await newCart()
+        const cartId = cart.id
+        const userEmail = req.session.user.email
+        userManager.updateUserCart(userEmail, cartId)
         res.send(carts)
     }
     catch (err) {
@@ -31,8 +36,7 @@ const getAllCarts = async (req, res) => {
 
 const newCart = async function (req, res) {
     try {
-        await cartsList.addCart()
-        res.send("Carrito agregado")
+        return await cartsList.addCart()
     }
     catch (err) {
         throw err

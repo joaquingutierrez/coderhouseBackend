@@ -5,8 +5,9 @@
   <h2>Edad: {{{user.age}}}</h2>
   <h2>Email: {{{user.email}}}</h2>
   <button id="logout">Cerrar sesion</button>
-  <a href="/api/products"><button>Ir a productos</button></a>
+  <a href="/api/carts/{{{user.cart}}}"><button>Ir a carrito</button></a>
 </div>
+  <a href="/api/products"><button>Ir a productos</button></a>
 
 
 <script src="/js/logout.js"></script>
