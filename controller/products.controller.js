@@ -16,7 +16,7 @@ const stringHTMLProducts = (products) => {
                 <h4>code: ${item.code}</h4>
                 <h4>category: ${item.category}</h4>
                 <a href="/api/products/${item._id}"><button>Más detalles</button><a>
-                <h4>category: ${item.stock}</h4>
+                <h4>Stock: ${item.stock}</h4>
             </div>
         `
     })

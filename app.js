@@ -18,6 +18,7 @@ const { messagesModal } = require("./dao/mongoManager/models/messages.model")
 const session = require('express-session')
 const passport = require('passport')
 const { initializePassport } = require('./dao/factory')
+const { redirectIfSessionOff } = require("./middleware/redirectIfSessionOff")
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -42,14 +43,14 @@ app.use(
 
 
 app.use('/', indexRouter)
-app.use('/api/carts', cartsRouter);
-app.use('/api/products', productsRouter);
-app.use('/chat', chatRouter)
+app.use('/api/carts',redirectIfSessionOff, cartsRouter);
+app.use('/api/products',redirectIfSessionOff, productsRouter);
+app.use('/chat',redirectIfSessionOff, chatRouter)
 app.use('/login', loginRouter)
-app.use('/signup', signupRouter)
-app.use('/api/session/current', profileRouter)
+app.use('/signup',redirectIfSessionOff, signupRouter)
+app.use('/api/session/current',redirectIfSessionOff, profileRouter)
 app.use('/logout', logoutRouter)
-app.use("/api/ticket", ticketRouter)
+app.use("/api/ticket",redirectIfSessionOff, ticketRouter)
 
 const PORT = 8080
 const httpServer = app.listen(PORT)
