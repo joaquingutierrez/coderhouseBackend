@@ -75,6 +75,19 @@ class CartManager {
         )
     }
 
+    async purchase(cId) {
+        const cart = await cartsModel.findOne({_id: cId}).populate("products.productId")
+        console.log(cart.products[0].productId.price)
+        if (cart.products.length > 0) {
+            let amount = 0
+            cart.products.forEach(item => {
+                console.log(item)
+                amount += item.productId.price * item.quantity
+                this.deleteProduct(cId, item.productId._id)
+            })
+            return amount
+        }
+    }
 }
 
 const cartsList = new CartManager()

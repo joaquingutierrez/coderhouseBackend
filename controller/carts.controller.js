@@ -94,6 +94,12 @@ const deleteAllProductsFromMyCart = async function (req, res) {
     res.send("Productos borrados con éxito")
 }
 
+const purchaseCart = async (req, res) => {
+    const {cId} = req.params
+    const amount = await cartsList.purchase(cId)
+    console.log(amount)
+}
+
 module.exports = {
     getAllCarts,
     newCart,
@@ -102,5 +108,6 @@ module.exports = {
     deleteProductFromMyCart,
     updateMyCart,
     updateProductQuantity,
-    deleteAllProductsFromMyCart
+    deleteAllProductsFromMyCart,
+    purchaseCart
 }
