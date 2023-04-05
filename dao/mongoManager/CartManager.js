@@ -1,4 +1,5 @@
 const { cartsModel } = require("./models/carts.model")
+const { productsList } = require("./ProductManager")
 
 class CartManager {
     async getCarts() {
@@ -76,12 +77,10 @@ class CartManager {
     }
 
     async purchase(cId) {
-        const cart = await cartsModel.findOne({_id: cId}).populate("products.productId")
-        console.log(cart.products[0].productId.price)
+        const cart = await cartsModel.findOne({ _id: cId }).populate("products.productId")
         if (cart.products.length > 0) {
             let amount = 0
-            cart.products.forEach(item => {
-                console.log(item)
+            cart.products.forEach((item) => {
                 amount += item.productId.price * item.quantity
                 this.deleteProduct(cId, item.productId._id)
             })

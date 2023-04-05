@@ -7,6 +7,7 @@ console.log(persistence);
 switch (persistence) {
     case "MONGO":
         const { default: mongoose } = require('mongoose')
+        mongoose.set('strictQuery', false);
         mongoose.connect(`mongodb+srv://${process.env.USER_MONGO}:${process.env.PASSWORD_MONGO}@cluster0.i34mf4h.mongodb.net/${process.env.DB_MONGO}?retryWrites=true&w=majority`, (err) => {
             if (err) {
                 console.log("Error al conectarse a la Base de Datos", err);

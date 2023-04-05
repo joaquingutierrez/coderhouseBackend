@@ -1,6 +1,7 @@
 const { cartsList } = require("../dao/factory")
 const { userManager } = require("../dao/mongoManager/UserManager")
 const { ticketsModel } = require("../dao/mongoManager/models/ticket.model")
+const crypto = require("crypto")
 
 const cartListRender = (cart) => {
     let acum = ""
@@ -100,7 +101,7 @@ const purchaseCart = async (req, res) => {
     const amount = await cartsList.purchase(cId)
     console.log(amount)
     await ticketsModel.create({
-        code: 0000,
+        code: crypto.randomBytes(20).toString('hex'),
         amount,
         purchaser: req.session.user.email
     })
