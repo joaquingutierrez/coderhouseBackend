@@ -85,6 +85,8 @@ class CartManager {
                 const productStock = await productsList.getProductById(pId)
                 if (productStock[0].stock >= cart.products[i].quantity) {
                     amount += cart.products[i].productId.price * cart.products[i].quantity
+                    productStock[0].stock -= cart.products[i].quantity
+                    await productsList.updateProduct(pId, {stock: productStock[0].stock})
                     this.deleteProduct(cId, cart.products[i].productId._id)
                 }
             }
