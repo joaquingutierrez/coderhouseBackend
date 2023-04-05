@@ -35,14 +35,15 @@ const getAllCarts = async (req, res) => {
 
 const newCart = async function (req, res) {
     try {
-        if (!(req.session.user?.cart)) {
-            const cart = await cartsList.addCart()
-            const cartId = cart.id
-            const userEmail = req.session.user.email
-            await userManager.updateUserCart(userEmail, cartId)
-            req.session.user = await userManager.findUser(userEmail)
-            req.session.save()
-
+        if (req.session.user.rol !== "ADMIN") {
+            if (!(req.session.user?.cart)) {
+                const cart = await cartsList.addCart()
+                const cartId = cart.id
+                const userEmail = req.session.user.email
+                await userManager.updateUserCart(userEmail, cartId)
+                req.session.user = await userManager.findUser(userEmail)
+                req.session.save()
+            }
         }
     }
     catch (err) {
