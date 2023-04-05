@@ -73,10 +73,10 @@ const initializePassport = () => {
                     let newUser = {
                         rol: "User GitHub",
                         first_name: profile._json.name,
-                        last_name: '',
+                        last_name: '***',
                         email: profile._json.email,
-                        password: '',
-                        age: 0,
+                        password: '***',
+                        age: 1
                     }
                     let result = await userModel.create(newUser)
                     done(null, result)

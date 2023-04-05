@@ -24,10 +24,6 @@ const cartListRender = (cart) => {
 const getAllCarts = async (req, res) => {
     try {
         const carts = await cartsList.getCarts()
-        const cart = await newCart()
-        const cartId = cart.id
-        const userEmail = req.session.user.email
-        userManager.updateUserCart(userEmail, cartId)
         res.send(carts)
     }
     catch (err) {
@@ -37,7 +33,15 @@ const getAllCarts = async (req, res) => {
 
 const newCart = async function (req, res) {
     try {
-        return await cartsList.addCart()
+        if (!(req.session.user?.cart)) {
+            const cart = await cartsList.addCart()
+            const cartId = cart.id
+            const userEmail = req.session.user.email
+            await userManager.updateUserCart(userEmail, cartId)
+            req.session.user = await userManager.findUser(userEmail)
+            req.session.save()
+
+        }
     }
     catch (err) {
         throw err
@@ -48,7 +52,7 @@ const getMyCart = async function (req, res) {
     const cId = req.params.cId;
     const cart = await cartsList.getCart(cId)
     const cartListRenderHTML = cartListRender(cart)
-    res.render("cart", {cartListRenderHTML, cId})
+    res.render("cart", { cartListRenderHTML, cId })
 }
 
 const addProductToMyCart = async function (req, res) {

@@ -2,7 +2,7 @@ const pagination = document.getElementById("pagination")
 const productsResponseJSON = document.getElementById("productsResponseJSON")
 const productsResponse = JSON.parse(productsResponseJSON.innerHTML)
 
-
+fetch("/api/carts", { method: "POST" })
 
 const paginationFunction = (paginationParams) => {
     const {hasNextPage, hasPrevPage, page, totalPages, nextPage, prevPage} = paginationParams

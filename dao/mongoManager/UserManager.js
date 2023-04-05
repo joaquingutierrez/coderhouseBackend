@@ -8,6 +8,9 @@ class UserManager {
             throw err
         }
     }
+    async findUser(email) {
+        return await userModel.findOne({email: email})
+    }
 }
 
 const userManager = new UserManager
