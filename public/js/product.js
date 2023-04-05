@@ -60,7 +60,12 @@ addToMyCart.addEventListener("click", () => {
     fetch(rute, {
         method: "POST"
     })
-    .then(()=> {
-        alert("Producto Agregado")
+    .then((res)=> res.text())
+    .then(data => {
+        if (data === "Usuario no autorizado") {
+            alert("Usuario no autorizado")
+        } else {
+            alert("Producto Agregado")
+        }
     })
 })
