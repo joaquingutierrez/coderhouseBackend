@@ -47,7 +47,7 @@ app.use('/api/carts',redirectIfSessionOff, cartsRouter);
 app.use('/api/products',redirectIfSessionOff, productsRouter);
 app.use('/chat',redirectIfSessionOff, chatRouter)
 app.use('/login', loginRouter)
-app.use('/signup',redirectIfSessionOff, signupRouter)
+app.use('/signup', signupRouter)
 app.use('/api/session/current',redirectIfSessionOff, profileRouter)
 app.use('/logout', logoutRouter)
 app.use("/api/ticket",redirectIfSessionOff, ticketRouter)
