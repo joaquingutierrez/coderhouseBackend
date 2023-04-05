@@ -12,6 +12,7 @@ const cartListRender = (cart) => {
             <h4>Precio: $${products[i].productId.price}</h4>
             <h4>Categoria: ${products[i].productId.category}</h4>
             <h5>Stock: ${products[i].productId.stock}</h5>
+            <h5>quantity: ${products[i].quantity}</h5>
         </div>
         `
     }
