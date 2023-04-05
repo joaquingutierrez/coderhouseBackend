@@ -3,7 +3,7 @@ const { userManager } = require("../dao/mongoManager/UserManager")
 
 const cartListRender = (cart) => {
     let acum = ""
-    const products = cart.products
+    const products = cart?.products
     for (let i = 0; i < products.length; i++) {
         acum += `
         <div class="card">
@@ -53,7 +53,7 @@ const getMyCart = async function (req, res) {
 const addProductToMyCart = async function (req, res) {
     const { cId, pId } = req.params;
     const { quantity } = await req.body;
-    cartsList.addProduct(cId, pId, quantity);
+    cartsList.addProduct(cId, pId, 1);
     const cart = cartsList.getCart(cId)
     res.send(cart)
 }

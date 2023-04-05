@@ -12,7 +12,12 @@ const userSchema = new mongoose.Schema({
     password: String,
     age: Number,
     cart: {
-        type: String,
+        type: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "carts"
+            }
+        ],
         default: ""
     },
     rol: {

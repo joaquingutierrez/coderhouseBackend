@@ -51,3 +51,16 @@ updateProduct.addEventListener("click", (e) => {
         return window.location.href = "/api/products/" + productId
     })
 })
+
+const addToMyCart = document.getElementById("addToMyCart")
+addToMyCart.addEventListener("click", () => {
+    const cartId = addToMyCart.getAttribute("refcartid")
+    const productId = addToMyCart.getAttribute("refproductid")
+    const rute = "/api/carts/" + cartId + "/product/" + productId
+    fetch(rute, {
+        method: "POST"
+    })
+    .then(()=> {
+        alert("Producto Agregado")
+    })
+})

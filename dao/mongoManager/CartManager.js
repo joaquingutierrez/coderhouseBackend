@@ -33,14 +33,14 @@ class CartManager {
         try {
             const cart = await cartsModel.findOne({ _id: cartId })
             if (productId && quantity) {
-                if (!(cart.products.some((item) => item.productId === productId))) {
+                if (!(cart?.products.some((item) => item.productId.toString() === productId))) {
                     cart.products.push({
                         productId: productId,
                         quantity: quantity
                     })
                 }
                 else {
-                    const index = cart.products.findIndex((item) => item.productId === productId)
+                    const index = cart.products.findIndex((item) => item.productId.toString() === productId)
                     cart.products[index].quantity += quantity
                 }
                 await cartsModel.findByIdAndUpdate(cartId, cart)
