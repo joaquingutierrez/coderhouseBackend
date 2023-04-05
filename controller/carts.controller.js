@@ -99,12 +99,16 @@ const deleteAllProductsFromMyCart = async function (req, res) {
 const purchaseCart = async (req, res) => {
     const { cId } = req.params
     const amount = await cartsList.purchase(cId)
-    console.log("Total", amount)
-    await ticketsModel.create({
-        code: crypto.randomBytes(20).toString('hex'),
-        amount,
-        purchaser: req.session.user.email
-    })
+    if (amount > 0) {
+        const ticket = await ticketsModel.create({
+            code: crypto.randomBytes(20).toString('hex'),
+            amount,
+            purchaser: req.session.user.email
+        })
+        res.send({message: "success", ticket})
+    } else {
+        console.log("no hay stock de ningun producto")
+    }
 }
 
 module.exports = {
