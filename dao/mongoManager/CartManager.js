@@ -80,10 +80,14 @@ class CartManager {
         const cart = await cartsModel.findOne({ _id: cId }).populate("products.productId")
         if (cart.products.length > 0) {
             let amount = 0
-            cart.products.forEach((item) => {
-                amount += item.productId.price * item.quantity
-                this.deleteProduct(cId, item.productId._id)
-            })
+            for (let i = 0; i < cart.products.length; i++) {
+                const pId = cart.products[i].productId._id.toString()
+                const productStock = await productsList.getProductById(pId)
+                if (productStock[0].stock >= cart.products[i].quantity) {
+                    amount += cart.products[i].productId.price * cart.products[i].quantity
+                    this.deleteProduct(cId, cart.products[i].productId._id)
+                }
+            }
             return amount
         }
     }

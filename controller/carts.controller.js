@@ -99,7 +99,7 @@ const deleteAllProductsFromMyCart = async function (req, res) {
 const purchaseCart = async (req, res) => {
     const { cId } = req.params
     const amount = await cartsList.purchase(cId)
-    console.log(amount)
+    console.log("Total", amount)
     await ticketsModel.create({
         code: crypto.randomBytes(20).toString('hex'),
         amount,
