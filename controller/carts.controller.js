@@ -1,5 +1,6 @@
 const { cartsList } = require("../dao/factory")
 const { userManager } = require("../dao/mongoManager/UserManager")
+const { ticketsModel } = require("../dao/mongoManager/models/ticket.model")
 
 const cartListRender = (cart) => {
     let acum = ""
@@ -95,9 +96,14 @@ const deleteAllProductsFromMyCart = async function (req, res) {
 }
 
 const purchaseCart = async (req, res) => {
-    const {cId} = req.params
+    const { cId } = req.params
     const amount = await cartsList.purchase(cId)
     console.log(amount)
+    await ticketsModel.create({
+        code: 0000,
+        amount,
+        purchaser: req.session.user.email
+    })
 }
 
 module.exports = {
