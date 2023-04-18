@@ -11,6 +11,7 @@ const { signupRouter } = require("./routers/signupRouter")
 const { profileRouter } = require("./routers/profileRouter")
 const { logoutRouter } = require("./routers/logoutRouter")
 const { ticketRouter } = require("./routers/ticketRouter")
+const { mockingProductsRouter } = require("./routers/mockingProductsRouter")
 const { engine } = require('express-handlebars')
 const { Server } = require('socket.io')
 const { stringHTMLProducts } = require('./controller/products.controller')
@@ -43,14 +44,15 @@ app.use(
 
 
 app.use('/', indexRouter)
-app.use('/api/carts',redirectIfSessionOff, cartsRouter);
-app.use('/api/products',redirectIfSessionOff, productsRouter);
-app.use('/chat',redirectIfSessionOff, chatRouter)
+app.use('/api/carts', redirectIfSessionOff, cartsRouter);
+app.use('/api/products', redirectIfSessionOff, productsRouter);
+app.use('/chat', redirectIfSessionOff, chatRouter)
 app.use('/login', loginRouter)
 app.use('/signup', signupRouter)
-app.use('/api/session/current',redirectIfSessionOff, profileRouter)
+app.use('/api/session/current', redirectIfSessionOff, profileRouter)
 app.use('/logout', logoutRouter)
-app.use("/api/ticket",redirectIfSessionOff, ticketRouter)
+app.use("/api/ticket", redirectIfSessionOff, ticketRouter)
+app.use("/api/mockingproducts", mockingProductsRouter)
 
 const PORT = 8080
 const httpServer = app.listen(PORT)
