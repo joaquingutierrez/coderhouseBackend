@@ -1,4 +1,7 @@
-const { productsList } = require("../dao/factory")
+const { productsList } = require("../dao/factory");
+const { CustomError } = require("../services/errors/CustomError");
+const { EErrors } = require("../services/errors/enum");
+const {generateProductErrorInfo} = require("../services/errors/info")
 require('dotenv').config()
 
 if (process.env.PERSISTENCE === "MONGO") {
@@ -122,10 +125,22 @@ const getMyProduct = async (req, res) => {
     res.render("product", { title, description, price, thumbnail, stock, category, id, cartId })
 }
 
-const newProduct = async (req, res) => {
-    const newProduct = await req.body;
-    const message = await productsList.addProduct(newProduct)
-    res.send(message)
+const newProduct = async (req, res, next) => {
+    try {
+        const newProduct = await req.body;
+        if (!newProduct.title || !newProduct.description || !newProduct.code || !newProduct.price || !newProduct.stock || !newProduct.category) {
+            CustomError.createError({
+                name: "ProductError",
+                cause: generateProductErrorInfo(newProduct),
+                message: "Error trying to create the product",
+                code: EErrors.INVALID_TYPES_ERROR
+            })
+        }
+        const message = await productsList.addProduct(newProduct)
+        res.send(message)
+    } catch {
+        next()
+    }
 }
 
 const deleteMyProduct = (req, res) => {

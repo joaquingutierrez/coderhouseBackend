@@ -1,8 +1,9 @@
 const { generateProducts } = require("../mock/utils")
 
 const mockingProducts = function (req, res) {
-    generateProducts(5)
-    res.send("Generados 100 productos")
+    const quantityOfProducts = 50
+    generateProducts(quantityOfProducts)
+    res.send("Generados", quantityOfProducts, "productos")
 }
 
 module.exports = {
