@@ -46,6 +46,7 @@ app.use(
 );
 
 app.use(errorMiddleware)
+app.use(addLogger)
 
 app.use('/', indexRouter)
 app.use('/api/carts', redirectIfSessionOff, cartsRouter);
