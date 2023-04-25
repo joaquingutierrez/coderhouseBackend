@@ -12,6 +12,7 @@ const { profileRouter } = require("./routers/profileRouter")
 const { logoutRouter } = require("./routers/logoutRouter")
 const { ticketRouter } = require("./routers/ticketRouter")
 const { mockingProductsRouter } = require("./routers/mockingProductsRouter")
+const { loggerTestRouter } = require("./routers/loggerTestRouter")
 const { engine } = require('express-handlebars')
 const { Server } = require('socket.io')
 const { stringHTMLProducts } = require('./controller/products.controller')
@@ -20,7 +21,8 @@ const session = require('express-session')
 const passport = require('passport')
 const { initializePassport } = require('./dao/factory')
 const { redirectIfSessionOff } = require("./middleware/redirectIfSessionOff")
-const {errorMiddleware} = require("./middleware/errors")
+const { errorMiddleware } = require("./middleware/errors")
+const { addLogger } = require("./logger/utils")
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -55,6 +57,7 @@ app.use('/api/session/current', redirectIfSessionOff, profileRouter)
 app.use('/logout', logoutRouter)
 app.use("/api/ticket", redirectIfSessionOff, ticketRouter)
 app.use("/api/mockingproducts", mockingProductsRouter)
+app.use("/api/loggerTest", loggerTestRouter)
 
 const PORT = 8080
 const httpServer = app.listen(PORT)
