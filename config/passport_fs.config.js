@@ -14,6 +14,7 @@ const initializePassport = () => {
             try {
                 let user = await userList.getUserByEmail({ email: username })
                 if (user !== undefined) {
+                    req.logger.warn("User already exists")
                     console.log("User already exists")
                     return done(null, false)
                 }

@@ -108,6 +108,7 @@ const purchaseCart = async (req, res) => {
         })
         res.send({message: "success", ticket})
     } else {
+        req.logger.warn("no hay stock de ningun producto")
         console.log("no hay stock de ningun producto")
     }
 }

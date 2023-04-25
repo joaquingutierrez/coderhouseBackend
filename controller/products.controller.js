@@ -85,6 +85,7 @@ const getAllProducts = async (request, response) => {
             }
         }
         catch (err) {
+            request.logger.error(err)
             console.log("Error", err);
         }
     } else {

@@ -14,6 +14,7 @@ const initializePassport = () => {
             try {
                 let user = await userModel.findOne({ email: username })
                 if (user) {
+                    req.logger.warn("User already exists")
                     console.log("User already exists")
                     return done(null, false)
                 }
@@ -50,6 +51,7 @@ const initializePassport = () => {
                 }
                 const user = await userModel.findOne({ email: username })
                 if (!user) {
+                    req.logger.warn("User doesn't exist")
                     console.log("User doesn't exist")
                     return done(null, false)
                 }

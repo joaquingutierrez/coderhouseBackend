@@ -17,11 +17,13 @@ const login = async (req, res) => {
         res.status(200).json({ message: "success", data: req.user })
     }
     catch (err) {
+        req.logger.error(err)
         console.log(err)
     }
 }
 
 const failLogin = async (req, res) => {
+    req.logger.error("Failed Strategy")
     console.log("Failed Strategy")
     res.send({ error: "Failed" })
 }
