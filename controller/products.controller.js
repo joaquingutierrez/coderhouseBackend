@@ -129,6 +129,7 @@ const getMyProduct = async (req, res) => {
 const newProduct = async (req, res, next) => {
     try {
         const newProduct = await req.body;
+        if (req.session.user.rol === "PREMIUM") newProduct.owner = req.session.user.email
         if (!newProduct.title || !newProduct.description || !newProduct.code || !newProduct.price || !newProduct.stock || !newProduct.category) {
             CustomError.createError({
                 name: "ProductError",
