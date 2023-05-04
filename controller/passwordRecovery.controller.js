@@ -3,7 +3,7 @@ require("dotenv").config()
 const { userManager } = require("../dao/mongoManager/UserManager")
 const CryptoJS = require("crypto-js")
 const crypto = require("crypto")
-const { passwordHash } = require("../utils")
+const { passwordHash, isValidPassword } = require("../utils")
 const { resetPasswordModel } = require("../dao/mongoManager/models/resetPassword.model")
 
 const secretKey = "CoderSecret"
@@ -52,17 +52,20 @@ const sendRecoveryEmail = async (req, res) => {
 const changePassword = async (req, res) => {
     const token = req.params.token
     const resetPassword = await resetPasswordModel.findOne({ token: token })
-    console.log(Date.now())
-    console.log(resetPassword.expiration)
-    console.log(Date.now() < resetPassword.expiration)
     if ((resetPassword.status) && (Date.now() < resetPassword.expiration)) {
         const encryptedEmail = resetPassword.email
         const originalEmail = CryptoJS.AES.decrypt(encryptedEmail, secretKey).toString(CryptoJS.enc.Utf8)
         const newPassword = req.body.password
         const newPasswordHash = await passwordHash(newPassword)
-        await userManager.updateUserPassword(originalEmail, newPasswordHash)
-        resetPasswordModel.findOneAndUpdate({ token: token }, { status: false })
-        res.send("success")
+        const user = await userManager.findUser(originalEmail)
+        const samePassword = await isValidPassword(newPassword, user)
+        if (samePassword) {
+            res.send("la contraseña es igual a la anterior")
+        } else {
+            await userManager.updateUserPassword(originalEmail, newPasswordHash)
+            await resetPasswordModel.findOneAndUpdate({ token: token }, { status: false })
+            res.send("success")
+        }
     } else {
         res.send("time out")
     }

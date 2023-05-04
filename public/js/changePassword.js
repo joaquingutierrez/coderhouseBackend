@@ -20,6 +20,8 @@ confirmPasswordButton.addEventListener("click", () => {
         } else if (data === "time out") {
             alert("Se agotó el tiempo")
             window.location.href = "/login"
+        } else if (data === "la contraseña es igual a la anterior") {
+            alert("La contraseña es igual a la anterior, por favor, elija otra")
         }
     })
 })
