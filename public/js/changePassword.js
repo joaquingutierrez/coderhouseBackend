@@ -12,4 +12,11 @@ confirmPasswordButton.addEventListener("click", () => {
             { password: newPassword }
         )
     })
+    .then(data => data.text())
+    .then(data => {
+        if (data === "success") {
+            alert("Contraseña cambiada con éxito")
+            window.location.href = "/login"
+        }
+    })
 })

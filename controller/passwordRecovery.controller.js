@@ -2,6 +2,7 @@ const nodemailer = require("nodemailer")
 require("dotenv").config()
 const { userManager } = require("../dao/mongoManager/UserManager")
 const CryptoJS = require("crypto-js")
+const {passwordHash} = require("../utils")
 
 const secretKey = "CoderSecret"
 
@@ -43,8 +44,9 @@ const changePassword = async (req, res) => {
     const encryptedEmail = req.params.id
     const originalEmail = CryptoJS.AES.decrypt(encryptedEmail, secretKey).toString(CryptoJS.enc.Utf8)
     const newPassword = req.body.password
-    console.log(newPassword)
-    await userManager.updateUserPassword(originalEmail, newPassword)
+    const newPasswordHash = await passwordHash(newPassword)
+    await userManager.updateUserPassword(originalEmail, newPasswordHash)
+    res.send("success")
 }
 
 module.exports = {
