@@ -8,6 +8,9 @@ class UserManager {
             throw err
         }
     }
+    async findUserByID(uid) {
+        return await userModel.findById(uid)
+    }
     async findUser(email) {
         return await userModel.findOne({email: email})
     }
@@ -19,6 +22,14 @@ class UserManager {
             throw err
         }
     }
+    async updateUserRol(_id, rol) {
+        try {
+            return await userModel.findByIdAndUpdate(_id, {rol: rol})
+        }
+        catch (err) {
+            throw err
+        }
+    }   
 }
 
 const userManager = new UserManager
