@@ -153,7 +153,7 @@ const deleteMyProduct = (req, res) => {
         productsList.deleteProduct(productId)
         res.send(`Producto con id: ${productId} eliminado satisfactoriamente`)
     } else {
-        res.send("No tiene permiso de modificar el archivo")
+        res.send("Usuario no autorizado")
     }
 }
 
@@ -165,7 +165,7 @@ const updateMyProduct = async (req, res) => {
         await productsList.updateProduct(productId, product)
         res.send(`Producto con id: ${productId} modificado con exito`)
     } else {
-        res.send("No tiene permiso de modificar el archivo")
+        res.send("Usuario no autorizado")
     }
 }
 
