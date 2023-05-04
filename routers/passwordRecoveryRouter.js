@@ -4,8 +4,8 @@ const {inputEmail, sendRecoveryEmail, inputPassword, changePassword} = require("
 
 passwordRecoveryRouter.get('', inputEmail)
 passwordRecoveryRouter.post("", sendRecoveryEmail)
-passwordRecoveryRouter.get("/change-password/:id", inputPassword)
-passwordRecoveryRouter.put("/change-password/:id", changePassword)
+passwordRecoveryRouter.get("/change-password/:token", inputPassword)
+passwordRecoveryRouter.put("/change-password/:token", changePassword)
 
 
 

@@ -17,6 +17,9 @@ confirmPasswordButton.addEventListener("click", () => {
         if (data === "success") {
             alert("Contraseña cambiada con éxito")
             window.location.href = "/login"
+        } else if (data === "time out") {
+            alert("Se agotó el tiempo")
+            window.location.href = "/login"
         }
     })
 })
