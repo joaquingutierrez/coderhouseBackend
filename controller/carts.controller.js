@@ -1,4 +1,4 @@
-const { cartsList } = require("../dao/factory")
+const { cartsList, productsList } = require("../dao/factory")
 const { userManager } = require("../dao/mongoManager/UserManager")
 const { ticketsModel } = require("../dao/mongoManager/models/ticket.model")
 const crypto = require("crypto")
@@ -61,9 +61,14 @@ const getMyCart = async function (req, res) {
 const addProductToMyCart = async function (req, res) {
     const { cId, pId } = req.params;
     const { quantity } = await req.body;
-    cartsList.addProduct(cId, pId, 1);
-    const cart = cartsList.getCart(cId)
-    res.send(cart)
+    const product = await productsList.getProductById(pId)
+    if (product[0].owner === req.session.user.email) {
+        res.send("No puede agregar un producto creado por usted")
+    } else {
+        cartsList.addProduct(cId, pId, 1);
+        const cart = cartsList.getCart(cId)
+        res.send(cart)
+    }
 }
 
 const deleteProductFromMyCart = async function (req, res) {

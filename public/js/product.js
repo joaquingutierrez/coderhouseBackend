@@ -62,6 +62,7 @@ addToMyCart.addEventListener("click", () => {
     })
     .then((res)=> res.text())
     .then(data => {
+        if (data === "No puede agregar un producto creado por usted") return alert("No puede agregar un producto creado por usted")
         if (data === "Usuario no autorizado") {
             alert("Usuario no autorizado")
         } else {
