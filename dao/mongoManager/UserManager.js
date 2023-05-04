@@ -11,6 +11,14 @@ class UserManager {
     async findUser(email) {
         return await userModel.findOne({email: email})
     }
+    async updateUserPassword(email, password) {
+        try {
+            return await userModel.findOneAndUpdate({email: email}, {password: password})
+        }
+        catch (err) {
+            throw err
+        }
+    }
 }
 
 const userManager = new UserManager
