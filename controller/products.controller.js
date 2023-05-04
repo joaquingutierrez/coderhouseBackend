@@ -149,7 +149,7 @@ const deleteMyProduct = (req, res) => {
     const productId = req.params.pId;
 
     const productBefore = productsList.getProductById(productId)
-    if (productBefore[0].owner === req.session.user.email) {
+    if (productBefore[0].owner === req.session.user.email || req.session.user.rol === "ADMIN") {
         productsList.deleteProduct(productId)
         res.send(`Producto con id: ${productId} eliminado satisfactoriamente`)
     } else {
@@ -161,7 +161,7 @@ const updateMyProduct = async (req, res) => {
     const productId = req.params.pId;
     const product = req.body;
     const productBefore = await productsList.getProductById(productId)
-    if (productBefore[0].owner === req.session.user.email) {
+    if (productBefore[0].owner === req.session.user.email || req.session.user.rol === "ADMIN") {
         await productsList.updateProduct(productId, product)
         res.send(`Producto con id: ${productId} modificado con exito`)
     } else {
