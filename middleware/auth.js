@@ -10,7 +10,7 @@ const auth = (req, res, next) => {
         res.send("Usuario no autorizado")
     }
 }
-const createProductAuth = (req, res, next) => {
+const premiumAdminAuth = (req, res, next) => {
     const user = req.session.user || "none"
     if (user.rol === "ADMIN" || user.rol === "PREMIUM") {
         req.logger.info("autorizado")
@@ -25,5 +25,5 @@ const createProductAuth = (req, res, next) => {
 
 module.exports = {
     auth,
-    createProductAuth
+    premiumAdminAuth
 }

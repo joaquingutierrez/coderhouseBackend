@@ -147,15 +147,26 @@ const newProduct = async (req, res, next) => {
 
 const deleteMyProduct = (req, res) => {
     const productId = req.params.pId;
-    productsList.deleteProduct(productId)
-    res.send(`Producto con id: ${productId} eliminado satisfactoriamente`)
+
+    const productBefore = productsList.getProductById(productId)
+    if (productBefore[0].owner === req.session.user.email) {
+        productsList.deleteProduct(productId)
+        res.send(`Producto con id: ${productId} eliminado satisfactoriamente`)
+    } else {
+        res.send("No tiene permiso de modificar el archivo")
+    }
 }
 
-const updateMyProduct = (req, res) => {
+const updateMyProduct = async (req, res) => {
     const productId = req.params.pId;
     const product = req.body;
-    productsList.updateProduct(productId, product)
-    res.send(`Producto con id: ${productId} modificado con exito`)
+    const productBefore = await productsList.getProductById(productId)
+    if (productBefore[0].owner === req.session.user.email) {
+        await productsList.updateProduct(productId, product)
+        res.send(`Producto con id: ${productId} modificado con exito`)
+    } else {
+        res.send("No tiene permiso de modificar el archivo")
+    }
 }
 
 module.exports = {
