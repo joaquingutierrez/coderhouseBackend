@@ -1,0 +1,205 @@
+paths:
+  /api/carts:
+    get:
+      summary: Obtiene todos los carritos de la base de datos
+      tags:
+        - Carts
+      responses:
+        "200":
+          description: Carritos obtenidos satisfactoriamente.
+        "500":
+          description: Error en el servidor
+    post:
+      summary: Crea un nuevo carrito en la base de datos
+      tags:
+        - Cart
+      responses:
+        "200":
+          description: Carrito creado con éxito en la base de datos
+        "500":
+          description: Error en el 
+  /api/carts/{cId}:
+    get:
+      parameters:
+      - name: cId
+        in: path
+        required: true
+        description: ID del carrito
+      schema:
+        $type: String
+      summary: Obtiene el carrito con el id que sea cId.
+      tags:
+        - Cart
+      responses:
+        "200":
+          description: Carrito obtenido con éxito
+        "500":
+          description: Error del servidor
+    put:
+      parameters:
+      - name: cId
+        in: path
+        required: true
+        description: ID del carrito
+        schema:
+          $type: String
+      requestBody:
+        required: true
+        content:
+          aplication/json:
+            schema: 
+              $ref: "#components/requestBodies/updateCart"
+      summary: Cambia el contenido del carrito por otro.
+      tags:
+        - Cart
+      responses:
+        "200":
+          description: Carrito actualizado con éxito
+        "500":
+          description: Error del servidor
+    delete:
+      parameters:
+      - name: cId
+        in: path
+        required: true
+        description: ID del carrito
+        schema:
+          $type: String
+      summary: Borra el carrito con el id que sea cId
+      tags:
+        - Cart
+      responses:
+        "200":
+          description: Carrito eliminado con éxito
+        "500":
+          description: Error del servidor
+  /api/carts/{cId}/product/{pId}:
+    post:
+      parameters:
+      - name: cId
+        in: path
+        required: true
+        description: ID del carrito
+        schema:
+          $type: String
+      - name: pId
+        in: path
+        required: true
+        description: ID del producto
+        schema:
+          $type: String
+      summary: Agrega el producto con el ID que sea pId al carrito con el ID que sea cId.
+      tags:
+        - Cart
+      responses:
+        "200":
+          description: Producto agregado al carrito con éxito.
+        "500":
+          description: Error en el servidor.
+  /api/carts/{cId}/products/{pId}:
+    delete:
+      parameters:
+      - name: cId
+        in: path
+        required: true
+        description: ID del carrito
+        schema:
+          $type: String
+      - name: pId
+        in: path
+        required: true
+        description: ID del producto
+        schema:
+          $type: String
+      summary: Borra el producto con el ID que sea pId en el carrito con el ID que sea cId
+      tags:
+        - Cart
+      responses:
+        "200":
+          description: Producto borrado con éxito del carrito.
+        "500":
+          description: Error en el servidor
+    put:
+      parameters:
+      - name: cId
+        in: path
+        required: true
+        description: ID del carrito
+        schema:
+          $type: String
+      - name: pId
+        in: path
+        required: true
+        description: ID del producto
+        schema:
+          $type: String
+      requestBody:
+        required: true
+        content:
+          aplication/json:
+            schema: 
+              $ref: "#components/requestBodies/updateProductQuantity"
+      summary: Modifica la cantidad del producto con el ID que sea pId en el carrito con el ID que sea cId
+      tags:
+        - Cart
+      responses:
+        "200":
+          description: Cantidad modificada con éxito.
+        "500":
+          description: Error en el servidor.
+  /api/carts/{cId}/purchase:
+    post:
+      parameters:
+      - name: cId
+        in: path
+        required: true
+        description: ID del carrito
+        schema:
+          $type: String
+      summary: Procede a la compra del carrito
+      tags:
+        - Cart
+      responses:
+        "200":
+          description: Compra realizada con éxito.
+        "500":
+          description: Error en el servidor.
+
+components:
+  shema:
+    Cart:
+      type: array
+      items:
+        type: object
+        properties:
+          productId:
+            type: ObjectId
+            description: ID del producto que fue autogenerado por MONGO.
+          quantity:
+            type: Number
+            description: Cantidad del producto deseada
+  requestBodies:
+    updateCart:
+      type: array
+      items:
+        type: object
+        properties:
+          productId:
+            type: ObjectId
+            description: ID autogenerado por MONGODB del producto a agregar.
+          quantity:
+            type: Number
+            description: Numero de productos a agregar.
+      example:
+        - productId: "dnjuqiohe7012"
+          quantity: 4
+        - productId: "dnjqben1eh2123"
+          quantity: 8
+    updateProductQuantity:
+      type: Object
+      properties:
+        newQuantity:
+          type: Number
+          description: Nueva cantidad del producto.
+      example:
+        newQuantity: 12
