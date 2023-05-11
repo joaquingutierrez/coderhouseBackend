@@ -26,6 +26,8 @@ const { initializePassport } = require('./dao/factory')
 const { redirectIfSessionOff } = require("./middleware/redirectIfSessionOff")
 const { errorMiddleware } = require("./middleware/errors")
 const { addLogger } = require("./logger/utils")
+const swaggerJSDoc = require('swagger-jsdoc')
+const swaggerUiExpress = require("swagger-ui-express")
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -90,6 +92,19 @@ socketServer.on("connection", (socket) => {
     });
 });
 
+const swaggerOptions = {
+    definition: {
+        openapi: "3.0.1",
+        info: {
+            title: "Documentacion del E-commerce",
+            description: "API de productos, carritos y usuarios para un E-commerce"
+        }
+    },
+    apis: ["./docs/**/*.yaml"]
+}
+
+const specs = swaggerJSDoc(swaggerOptions)
+app.use("/apidocs", swaggerUiExpress.serve, swaggerUiExpress.setup(specs))
 
 
 

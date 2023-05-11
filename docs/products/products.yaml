@@ -1,0 +1,143 @@
+paths:
+  /api/products:
+    get:
+      summary: Obtiene todos los products
+      tags:
+        - Products
+      responses:
+        "200":
+          description: Si se ha iniciado sesion, los products son obtenidos satisfactoriamente de la base de datos. De lo contrario, se redirecciona a /login
+        "500":
+          description: Error interno del servidor
+    post:
+      summary: Agrega un producto nuevo
+      tags:
+        - Products
+      responses:
+        "200":
+          description: Si se cuenta con una sesion autorizada para crear productos, el producto será agregadro satisfactoriamente, de lo contrario aparecerá un mensaje de usuario no autorizado. Si no se inicia sesion, se redirecciona a /login
+        "500":
+          description: Ha habido un error en el servidor y no se ha podido agregar el producto
+  /api/products/{pId}:
+    get:
+      summary: Obtiene todos el producto con el id pId
+      tags:
+        - Product
+      parameters:
+      - name: pId
+        in: path
+        required: true
+        description: ID del producto
+        schema:
+          $type: String
+      responses:
+        "200":
+          description: Producto obtenido con éxito
+        "500":
+          description: Error interno del servidor
+    put:
+      summary: Modifica una o más propiedades del producto con el id que sea pId, menos _id
+      tags:
+        - Product
+      parameters:
+      - name: pId
+        in: path
+        required: true
+        description: ID del producto
+        schema:
+          $type: String
+      requestBody:
+        required: true
+        content:
+          aplication/json:
+            schema: 
+              $ref: "#components/requestBodies/updateProduct"
+      responses:
+        "200":
+          description: Si se ha iniciado sesion y está autorizado, puede modificar el producto
+        "500":
+          description: Error interno del servidor
+    delete:
+      summary: Si el usuario está autorizado, borra el producto con el id que sea pId
+      tags:
+        - Product
+      parameters:
+      - name: pId
+        in: path
+        required: true
+        description: ID del producto
+        schema:
+          $type: String
+      responses:
+        "200":
+          description: Producto eliminado con éxito
+        "500":
+          description: Error interno del servidor
+
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: ID autogenerado por MongoDB
+        title:
+          type: String
+          description: Nombre del producto
+        description:
+          type: String
+          description: Descripcion del producto
+        code:
+          type: String
+          description: Codigo del producto, este debe ser único
+        price:
+          type: Number
+          description: Precio del producto
+        stock:
+          type: Number
+          description: Cantidad de stock del producto
+        category:
+          type: String
+          description: Categoría a la que pertenece el producto
+      example:
+        _id: ObjectId("15648dasdhakfgbhuahjlda55")
+        title: "Rompecabezas Star Wars"
+        description: "Rompecabezas de 1000 piezas, tamaño 200x150 cm"
+        code: "dnjakbiuqpn12u3y1293"
+        price: 7999
+        stock: 8
+        category: juguetes
+  requestBodies:
+    updateProduct:
+      type: Object
+      properties:
+        _id:
+          type: ObjectId
+          description: ID autogenerado por MongoDB
+        title:
+          type: String
+          description: Nombre del producto
+        description:
+          type: String
+          description: Descripcion del producto
+        code:
+          type: String
+          description: Codigo del producto, este debe ser único
+        price:
+          type: Number
+          description: Precio del producto
+        stock:
+          type: Number
+          description: Cantidad de stock del producto
+        category:
+          type: String
+          description: Categoría a la que pertenece el producto
+      example:
+        title: "Rompecabezas Marvel"
+        description: "Rompecabezas de 1000 piezas, tamaño 200x150 cm"
+        code: "dnjdasdaxxxxxxxxxzzzcasq"
+        price: 7999
+        stock: 8
+        category: juguetes
+            
