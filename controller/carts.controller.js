@@ -43,6 +43,9 @@ const newCart = async function (req, res) {
                 await userManager.updateUserCart(userEmail, cartId)
                 req.session.user = await userManager.findUser(userEmail)
                 req.session.save()
+                res.send({ message: "success", payload: { cartId: cartId } })
+            } else {
+                res.send({ message: "success", payload: { cartId: req.session.user.cart } })
             }
         }
     }
@@ -65,9 +68,9 @@ const addProductToMyCart = async function (req, res) {
     if (product[0].owner === req.session.user.email) {
         res.send("No puede agregar un producto creado por usted")
     } else {
-        cartsList.addProduct(cId, pId, 1);
-        const cart = cartsList.getCart(cId)
-        res.send(cart)
+        await cartsList.addProduct(cId, pId, 1);
+        const cart = await cartsList.getCart(cId)
+        res.send({ message: "success", payload: cart })
     }
 }
 
@@ -111,8 +114,9 @@ const purchaseCart = async (req, res) => {
             amount,
             purchaser: req.session.user.email
         })
-        res.send({message: "success", ticket})
+        res.send({ message: "success", ticket })
     } else {
+        res.send({message: "error"})
         req.logger.warn("no hay stock de ningun producto")
         console.log("no hay stock de ningun producto")
     }

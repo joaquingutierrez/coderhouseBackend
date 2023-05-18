@@ -15,7 +15,6 @@ describe("Products Test", () => {
             email: process.env.ADMIN_EMAIL,
             password: process.env.ADMIN_PASSWORD
         }
-        const JSON_admin_user = JSON.stringify(admin_user)
         const { header } = await requester.post("/login").send(admin_user)
         cookieResult = header["set-cookie"]
     })
