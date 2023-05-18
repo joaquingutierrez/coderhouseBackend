@@ -1,9 +1,7 @@
 const chai = require("chai")
 const supertest = require("supertest")
-const { describe } = require("mocha")
 
 require("dotenv").config()
-const { productsModel } = require("../dao/mongoManager/models/products.model")
 
 const expect = chai.expect
 const requester = supertest("http://localhost:8080")
@@ -50,8 +48,6 @@ describe("Products Test", () => {
         const { _body } = await requester.put("/api/products/" + myTestingProductId).send(mockUpdateProduct).set("Cookie", [cookieResult])
         const titleUpdated = _body.payload.title
         expect(titleUpdated).to.not.equal("Producto de Prueba")
-
-
     })
     it("Se debe eliminar el producto creado en este mismo test y obtener un 200", async () => {
         const { statusCode } = await requester.delete("/api/products/" + myTestingProductId).set("Cookie", [cookieResult])

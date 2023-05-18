@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "mocha test/products.test.js",
+    "test": "mocha test/users.test.js",
     "start": "npx nodemon app"
   },
   "repository": {
