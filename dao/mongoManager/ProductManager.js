@@ -21,7 +21,11 @@ class ProductManager {
         try {
             const newProduct = new productsModel(product)
             await newProduct.save()
-            return "Producto agregado satisfactoriamente"
+            const response = {
+                message: "success",
+                payload: newProduct
+            }
+            return response
         }
         catch {
             console.log("El producto ya existe o le faltan propiedades");
@@ -40,6 +44,7 @@ class ProductManager {
     async updateProduct(productId, product) {
         try {
             await productsModel.findByIdAndUpdate(productId, product)
+            return await productsModel.findById(productId)
         }
         catch (err) {
             throw err

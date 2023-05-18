@@ -138,8 +138,8 @@ const newProduct = async (req, res, next) => {
                 code: EErrors.INVALID_TYPES_ERROR
             })
         }
-        const message = await productsList.addProduct(newProduct)
-        res.send(message)
+        const response = await productsList.addProduct(newProduct)
+        res.send(response)
     } catch {
         next()
     }
@@ -149,7 +149,7 @@ const deleteMyProduct = (req, res) => {
     const productId = req.params.pId;
 
     const productBefore = productsList.getProductById(productId)
-    if (productBefore[0].owner === req.session.user.email || req.session.user.rol === "ADMIN") {
+    if (productBefore[0]?.owner === req.session.user.email || req.session.user.rol === "ADMIN") {
         productsList.deleteProduct(productId)
         res.send(`Producto con id: ${productId} eliminado satisfactoriamente`)
     } else {
@@ -162,8 +162,8 @@ const updateMyProduct = async (req, res) => {
     const product = req.body;
     const productBefore = await productsList.getProductById(productId)
     if (productBefore[0].owner === req.session.user.email || req.session.user.rol === "ADMIN") {
-        await productsList.updateProduct(productId, product)
-        res.send(`Producto con id: ${productId} modificado con exito`)
+        const updatedProduct = await productsList.updateProduct(productId, product)
+        res.send({message: "success", payload: updatedProduct})
     } else {
         res.send("Usuario no autorizado")
     }
