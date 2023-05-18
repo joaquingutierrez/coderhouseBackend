@@ -36,6 +36,7 @@ const getAllCarts = async (req, res) => {
 const newCart = async function (req, res) {
     try {
         if (req.session.user.rol !== "ADMIN") {
+            console.log(req.session)
             if (!(req.session.user?.cart)) {
                 const cart = await cartsList.addCart()
                 const cartId = cart.id
