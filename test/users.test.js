@@ -29,6 +29,10 @@ describe("users Test", () => {
         cookieResult = header["set-cookie"]
         expect(_body.message).to.be.equal("success")
     })
+    it("Los datos del usuario no deben contar con la password", async () => {
+        const { _body } = await requester.get("/api/session/current/getProfile").set("Cookie", [cookieResult])
+        expect(_body.user).to.not.has.property("password")
+    })
     it("Debe traer el render del profile del usuario", async () => {
         const {statusCode} = await requester.get("/api/session/current").set("Cookie", [cookieResult])
         expect(statusCode).to.be.equal(200)
