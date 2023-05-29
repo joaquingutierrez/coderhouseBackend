@@ -29,7 +29,15 @@ class UserManager {
         catch (err) {
             throw err
         }
-    }   
+    }
+    async updateUserLastConection(_id) {
+        try {
+            return await userModel.findByIdAndUpdate(_id, {last_conection: Date()})
+        }
+        catch (err) {
+            throw err
+        }
+    }
 }
 
 const userManager = new UserManager

@@ -1,3 +1,5 @@
+const { userManager } = require("../mongoManager/UserManager")
+
 class UserDto {
     constructor(user) {
         this._id = user._id
@@ -7,6 +9,7 @@ class UserDto {
         this.age = user.age ? user.age : "No provista"
         this.email = user.email
         this.cart = user.cart
+        userManager.updateUserLastConection(user._id)
     }
 }
 
