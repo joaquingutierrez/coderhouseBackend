@@ -54,7 +54,6 @@ addProduct.addEventListener("click", (e) => {
         })
         .then((res) => res.text())
         .then(data => {
-            console.log(data === "Producto agregado satisfactoriamente")
             if (data === "Producto agregado satisfactoriamente") {
                 window.location.href = "/api/products"
             } else if (data === "Usuario no autorizado"){

@@ -24,7 +24,6 @@ describe("Products Test", () => {
     it("Debe crear el carrito para el usuario", async () => {
         const { _body } = await requester.post("/api/carts").set("Cookie", [cookieResult])
         cartId = _body.payload.cartId
-        console.log(cartId)
         expect(_body.payload).to.has.property("cartId")
     })
     it("Debe traer el render del carrito del usuario", async () => {
@@ -35,7 +34,6 @@ describe("Products Test", () => {
         const productId = "63e25b02ced6c39ce420118e" //Id de un producto de la base de datos eligido al azar
         const URL = "/api/carts/" + cartId + "/product/" + productId
         const {statusCode, _body} = await requester.post(URL).set("Cookie", [cookieResult])
-        console.log(_body)
         expect(statusCode).to.be.equal(200)
     })
     it("Debe poder eliminar el producto del carrito", async () => {
