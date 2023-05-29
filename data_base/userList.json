@@ -5,7 +5,7 @@
 		"email": "lucasguty@gmail.com",
 		"age": "26",
 		"password": "$2b$10$I3WkCbyddoRuDxKUpSEqEu360h67jpi5q/G6DqtXn61USqivR8ffq",
-		"rol": "User",
+		"rol": "USER",
 		"id": 1
 	},
 	{
@@ -14,7 +14,7 @@
 		"email": "joaquindraguty@gmail.com",
 		"age": "27",
 		"password": "$2b$10$8wFe1UUwZh2jjZmpkWNFKOhp6ss2zuY0KAK61pHPzuIH8fb9KzG0q",
-		"rol": "User",
+		"rol": "USER",
 		"id": 2
 	},
 	{
@@ -23,7 +23,7 @@
 		"email": "joaquinguty@gmail.com",
 		"password": "***",
 		"age": 1,
-		"rol": "User",
+		"rol": "USER",
 		"id": 3
 	},
 	{
@@ -32,7 +32,7 @@
 		"email": "lucasguty",
 		"age": "26",
 		"password": "$2b$10$oubrAAyFfRktul8IuwLcAeZYqDXDcNVKB0S1BUq1N1bp7pVEOQEAS",
-		"rol": "User",
+		"rol": "USER",
 		"id": 4
 	}
 ]

@@ -73,7 +73,7 @@ const initializePassport = () => {
                 let user = await userModel.findOne({ email: profile._json.email })
                 if (!user) {
                     let newUser = {
-                        rol: "User GitHub",
+                        rol: "USER",
                         first_name: profile._json.name,
                         last_name: '***',
                         email: profile._json.email,

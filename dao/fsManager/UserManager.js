@@ -26,7 +26,7 @@ class UserManager {
                 UserManager.id++;
                 user = {
                     ...user,
-                    rol: "User",
+                    rol: "USER",
                     id: UserManager.id
                 };
                 this.users.push(user)
