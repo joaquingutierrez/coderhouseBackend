@@ -16,12 +16,13 @@ updateUser.addEventListener("click", () => {
         })
 })
 
-const renderForm = (path) => {
+const renderForm = (folder) => {
+    const path = `/api/users/${userId}/documents`
     uploadFiles.innerHTML = `
-    <form action="/api/users/${userId}/documents" enctype="multipart/form-data" method="post">
+    <form action="${path}" enctype="multipart/form-data" method="post">
         <div class="form-group">
             <input type="file" class="form-control-file" name="uploaded_file">
-            <input type="text" class="form-control" name="path" value=${path}>
+            <input style="display: none" type="text" class="form-control" name="path" value=${folder}>
             <input type="submit" value="Subir!" class="btn btn-default">
         </div>
     </form>
