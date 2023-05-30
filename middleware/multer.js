@@ -2,11 +2,12 @@ const multer  = require('multer')
 
 
 const storage = multer.diskStorage({
-    destination: function(req, file, cb) {
-        cb(null, "./public/img")
+    destination: async function(req, file, cb) {
+        const data = await req.body
+        cb(null, "./public/img/documents/" + data.path)
     },
     filename: function(req, file, cb) {
-        cb(null, file.originalname)
+        cb(null, req.session.user._id)
     }
 })
 

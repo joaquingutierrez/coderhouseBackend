@@ -15,9 +15,12 @@ const changeRol =  async (req, res) => {
 }
 
 const uploadDocuments = async (req, res) => {
-    data = await req.body
-    console.log(data)
-    res.send("Recibido")
+    try {
+        res.send("Recibido")
+    }
+    catch (err) {
+        console.log(err)
+    }
 }
 
 module.exports = {
