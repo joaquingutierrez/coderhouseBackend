@@ -10,6 +10,8 @@ updateUser.addEventListener("click", () => {
         .then(data => {
             if (data.message === "success") {
                 window.location.href = ""
+            } else {
+                alert("Error, no se puede pasar a premium porque falta documentacion")
             }
         })
 })
