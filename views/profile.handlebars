@@ -8,8 +8,17 @@
   <button id="logout">Cerrar sesion</button>
   <a href="/api/carts/{{{user.cart}}}"><button>Ir a carrito</button></a>
 </div>
-  <a href="/api/products"><button>Ir a productos</button></a>
-  <a id="updateUserButton">Actualizar usuario (PREMIUM O USER)</a>
+<a href="/api/products"><button>Ir a productos</button></a>
+<a id="updateUserButton">Actualizar usuario (PREMIUM O USER)</a>
+
+
+<form action="/api/users/{{{user._id}}}/documents" enctype="multipart/form-data" method="post">
+  <div class="form-group">
+    <input type="file" class="form-control-file" name="uploaded_file">
+    <input type="text" class="form-control" placeholder="Tipo de Documento" name="typeOfDocument">
+    <input type="submit" value="Subir!" class="btn btn-default">
+  </div>
+</form>
 
 
 <script src="/js/logout.js"></script>

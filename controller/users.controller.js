@@ -14,7 +14,13 @@ const changeRol =  async (req, res) => {
     res.send({message: "success"})
 }
 
+const uploadDocuments = async (req, res) => {
+    data = await req.body
+    console.log(data)
+    res.send("Recibido")
+}
 
 module.exports = {
-    changeRol
+    changeRol,
+    uploadDocuments
 }
