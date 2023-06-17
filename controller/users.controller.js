@@ -51,7 +51,7 @@ const deleteInactiveUsers = async (req, res) => {
         if (user.last_conection.getTime() < (Date.now() - 30*60*1000)) {
             userManager.deleteInactiveUsers(user._id)
         }
-        res.send("Todo bien")
+        res.send({message: "success"})
     })
 }
 

@@ -1,6 +1,6 @@
 <div>
   <h2 id="userId" style="display: none">{{{user._id}}}</h2>
-  <h2>Rol: {{{user.rol}}}</h2>
+  <h2>Rol: <span id="userRol">{{{user.rol}}}</span></h2>
   <h2>Nombre: {{{user.first_name}}}</h2>
   <h2>Apellido: {{{user.last_name}}}</h2>
   <h2>Edad: {{{user.age}}}</h2>
@@ -9,23 +9,23 @@
   <a href="/api/carts/{{{user.cart}}}"><button>Ir a carrito</button></a>
 </div>
 <a href="/api/products"><button>Ir a productos</button></a>
-<a id="updateUserButton">Actualizar usuario (PREMIUM O USER)</a>
+<div id="utilButton"></div>
 
 
 
-<section>
-    <label for="lang">Tipo de documento</label>
-      <select name="options" id="typeOfDocument">
-        <option>...</option>
-        <option value="profiles">Imagen de perfil</option>
-        <option value="identificacion">Identificacion</option>
-        <option value="comprobante_de_domicilio">Comprobante de domicilio</option>
-        <option value="comprobante_de_estado_de_cuenta">Comprobante de estado de cuenta</option>
-        <option value="products">Imagen de productos</option>
-      </select>
-      <div id="uploadFiles">
+<section id="uploadFiles">
+  <label for="lang">Tipo de documento</label>
+  <select name="options" id="typeOfDocument">
+    <option>...</option>
+    <option value="profiles">Imagen de perfil</option>
+    <option value="identificacion">Identificacion</option>
+    <option value="comprobante_de_domicilio">Comprobante de domicilio</option>
+    <option value="comprobante_de_estado_de_cuenta">Comprobante de estado de cuenta</option>
+    <option value="products">Imagen de productos</option>
+  </select>
+  <div id="uploadFiles">
 
-      </div>
+  </div>
 
 </section>
 
