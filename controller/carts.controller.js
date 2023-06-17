@@ -8,14 +8,14 @@ const cartListRender = (cart) => {
     const products = cart?.products
     for (let i = 0; i < products.length; i++) {
         acum += `
-        <div class="card">
-            <h2>${products[i].productId.title}</h2>
-            <p>Descripcion: ${products[i].productId.description}</p>
-            <h4>Precio: $${products[i].productId.price}</h4>
-            <h4>Categoria: ${products[i].productId.category}</h4>
-            <h5>Stock: ${products[i].productId.stock}</h5>
-            <h5>quantity: ${products[i].quantity}</h5>
-        </div>
+        <tr>
+            <td>${products[i].productId.title}</td>
+            <td>${products[i].productId.description}</td>
+            <td>${products[i].productId.price}</td>
+            <td>${products[i].productId.category}</td>
+            <td>${products[i].productId.stock}</td>
+            <td>${products[i].quantity}</td>
+        </tr>
         `
     }
     return acum
@@ -58,7 +58,7 @@ const getMyCart = async function (req, res) {
     const cId = req.params.cId;
     const cart = await cartsList.getCart(cId)
     const cartListRenderHTML = cartListRender(cart)
-    res.render("cart", { cartListRenderHTML, cId })
+    res.render("cart", { style: "/css/cart.css", cartListRenderHTML, cId })
 }
 
 const addProductToMyCart = async function (req, res) {
@@ -116,7 +116,7 @@ const purchaseCart = async (req, res) => {
         })
         res.send({ message: "success", ticket })
     } else {
-        res.send({message: "error"})
+        res.send({ message: "error" })
         req.logger.warn("no hay stock de ningun producto")
         console.log("no hay stock de ningun producto")
     }

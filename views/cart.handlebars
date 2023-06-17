@@ -2,7 +2,17 @@
 
 
 <div class="container">
-    {{{cartListRenderHTML}}}
+    <table id="table">
+        <tr>
+            <th>Titulo</th>
+            <th>Descipcion</th>
+            <th>Precio</th>
+            <th>Categoria</th>
+            <th>Stock</th>
+            <th>Cantidad</th>
+        </tr>
+        {{{cartListRenderHTML}}}
+    </table>
 </div>
 
 <button id="buyButton" ref={{{cId}}}>Comprar</button>
