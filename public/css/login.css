@@ -1,0 +1,30 @@
+.loginContainer {
+    background-color: #AA5939;
+    padding: 5rem;
+    border-radius: 20%;
+}
+#loginSection {
+    display: flex;
+    flex-direction: column;
+    height: 90vh;
+    justify-content: center;
+    align-items: center;
+}
+.loginInputs {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.button {
+    background-color: #551800;
+    color: #FFC2AA;
+    padding: 1rem;
+    border-radius: 25%;
+    margin: 0.5rem;
+}
+.loginInputs input {
+    background-color: #551800;
+    color: #FFC2AA;
+    padding: 1rem;
+    margin: 0.5rem;
+}

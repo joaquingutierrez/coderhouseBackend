@@ -42,16 +42,16 @@ const uploadDocuments = async (req, res) => {
 const getAllUsers = async (req, res) => {
     const allUsers = await userManager.getAllUsers()
     const usersDataFiltered = allUsersDTO(allUsers)
-    res.render("users", {data: JSON.stringify(usersDataFiltered)})
+    res.render("users", { data: JSON.stringify(usersDataFiltered) })
 }
 
 const deleteInactiveUsers = async (req, res) => {
     const allUsers = await userManager.getAllUsers()
     allUsers.map(user => {
-        if (user.last_conection.getTime() < (Date.now() - 30*60*1000)) {
+        if (user.last_conection.getTime() < (Date.now() - 30 * 60 * 1000)) {
             userManager.deleteInactiveUsers(user._id)
         }
-        res.send({message: "success"})
+        res.send({ message: "success" })
     })
 }
 

@@ -1,7 +1,7 @@
 const redirectIfLogin = function (req, res) {
     req.session.user ?
         res.redirect("/api/session/current") :
-        res.render("login")
+        res.render("login", {style: "/css/login.css"})
 }
 
 const login = async (req, res) => {

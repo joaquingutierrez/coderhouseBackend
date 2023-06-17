@@ -4,7 +4,7 @@ const userArray = JSON.parse(data.innerText)
 const renderUserList = () => {
     userArray.map(user => {
         data.innerHTML += `
-        <div>
+        <div class="usersListItem">
         <h2>${user.first_name + " " + user.last_name}</h2>
         <h2>${user.rol}</h2>
         <h2>${user.email}</h2>

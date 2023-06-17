@@ -1,21 +1,25 @@
-<div>
-    <div class="chat-container">
+<section id="loginSection">
+    <div class="loginContainer">
+        <div class="loginInputs">
 
-        <input type="text" placeholder="Email" name="email" id="email" />
+            <input type="text" placeholder="Email" name="email" id="email" />
 
-        <input type="password" placeholder="Password" name="password" id="password" />
+            <input type="password" placeholder="Password" name="password" id="password" />
 
-        <button id="login">Iniciar sesion</button>
+            <div>
+                <a href="/api/passwordrecovery"><Button class="button">Olvidé mi contraseña</Button></a>
+                <button id="login" class="button">Iniciar sesion</button>
+            </div>
 
+        </div>
+
+        <a href="/login/github" id="github"><button class="button">Iniciar sesion con GITHUB</button></a>
+
+        <a href="/signup"><button class="button">Registrarse</button></a>
     </div>
 
-    <a href="/signup"><button>Registrarse</button></a>
 
-    <a href="/login/github" id="github">Iniciar sesion con GITHUB</a>
-
-    <a href="/api/passwordrecovery"><Button>Olvidé mi contraseña</Button></a>
-
-</div>
+</section>
 
 
 <script src="/js/login.js"></script>

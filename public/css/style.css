@@ -31,3 +31,9 @@
     color: blue;
     border-bottom: 1px solid blue;
 }
+
+.usersListItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

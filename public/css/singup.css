@@ -1,0 +1,30 @@
+#singupSection {
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#myForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    background-color: #AA5939;
+    padding: 5rem;
+    border-radius: 20%;
+}
+input {
+    background-color: #551800;
+    color: #FFC2AA;
+    padding: 1rem;
+    margin: 0.5rem;
+}
+
+button {
+    background-color: #551800;
+    color: #FFC2AA;
+    padding: 1rem;
+    border-radius: 25%;
+    margin: 0.5rem;
+}
