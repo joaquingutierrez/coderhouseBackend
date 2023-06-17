@@ -19,7 +19,7 @@ const premiumAdminAuth = (req, res, next) => {
     } else {
         req.logger.warn("Usuario no autorizado")
         console.log("Usuario no autorizado")
-        res.send("Usuario no autorizado")
+        res.send({message: "Usuario no autorizado"})
     }
 }
 

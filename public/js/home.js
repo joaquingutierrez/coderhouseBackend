@@ -52,12 +52,13 @@ addProduct.addEventListener("click", (e) => {
                 newProduct
             )
         })
-        .then((res) => res.text())
+        .then((res) => res.json())
         .then(data => {
-            if (data === "Producto agregado satisfactoriamente") {
+            if (data.message === "Usuario no autorizado") {
+                return alert("Usuario no autorizado")
+            }
+            if (data.message === "success") {
                 window.location.href = "/api/products"
-            } else if (data === "Usuario no autorizado"){
-                alert("Usuario no autorizado")
             } else {
                 alert("El producto ya existe")
             }
