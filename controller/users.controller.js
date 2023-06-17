@@ -42,7 +42,7 @@ const uploadDocuments = async (req, res) => {
 const getAllUsers = async (req, res) => {
     const allUsers = await userManager.getAllUsers()
     const usersDataFiltered = allUsersDTO(allUsers)
-    res.render("users", { data: JSON.stringify(usersDataFiltered) })
+    res.render("users", { style: "/css/users.css", data: JSON.stringify(usersDataFiltered) })
 }
 
 const deleteInactiveUsers = async (req, res) => {

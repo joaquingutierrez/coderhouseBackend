@@ -2,17 +2,41 @@ const data = document.getElementById("data")
 const userArray = JSON.parse(data.innerText)
 
 const renderUserList = () => {
+    let acum = `
+<table id="table">
+    <tr>
+        <th>
+            Nombre y Apellido
+        </th>
+        <th>
+            Rol
+        </th>
+        <th>
+            Email
+        </th>
+        <th>
+            Eliminar
+        </th>
+    </tr>
+`
+
     userArray.map(user => {
-        data.innerHTML += `
-        <div class="usersListItem">
-        <h2>${user.first_name + " " + user.last_name}</h2>
-        <h2>${user.rol}</h2>
-        <h2>${user.email}</h2>
-        <button>Eliminar usuario</button>
-        </div>
-        `
-        
+        acum += `
+    <tr>
+        <td>${user.first_name + " " + (user.last_name !== "***" ? user.last_name : "")}</td>
+        <td>${user.rol}</td>
+        <td>${user.email}</td>
+        <td><button>Eliminar usuario</button></td>
+    </tr>
+    `
     })
+
+    acum += `
+    </table>
+    `
+
+    data.innerHTML = acum
 }
-data.innerText = ""
+
+
 renderUserList()
