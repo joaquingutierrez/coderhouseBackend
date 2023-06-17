@@ -1,6 +1,7 @@
 const { userManager } = require("../dao/mongoManager/UserManager")
 const fs = require("fs")
 const path = require("path")
+const { allUsersDTO } = require("../dao/dto/allUsers.dto")
 
 const changeRol =  async (req, res) => {
     const uid = req.params.uid
@@ -38,7 +39,14 @@ const uploadDocuments = async (req, res) => {
     }
 }
 
+const getAllUsers = async (req, res) => {
+    const allUsets = await userManager.getAllUsers()
+    const usersDataFiltered = allUsersDTO(allUsets)
+    res.send(usersDataFiltered)
+}
+
 module.exports = {
     changeRol,
-    uploadDocuments
+    uploadDocuments,
+    getAllUsers
 }
