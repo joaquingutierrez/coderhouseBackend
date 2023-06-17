@@ -125,7 +125,7 @@ const getMyProduct = async (req, res) => {
     const productId = await productsList.getProductById(pId)
     const cartId = req.session.user.cart
     const { title, description, price, thumbnail, stock, category, id } = productId[0]
-    res.render("product", { title, description, price, thumbnail, stock, category, id, cartId })
+    res.render("product", { style: "/css/productDetail.css", title, description, price, thumbnail, stock, category, id, cartId })
 }
 
 const newProduct = async (req, res, next) => {
