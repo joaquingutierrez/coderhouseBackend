@@ -1,35 +1,37 @@
-<h1>Lista de Productos</h1>
+<section id="productsHomeSection">
+    <h1>Lista de Productos</h1>
 
-<h2>Bienvenido {{{user.rol}}} {{{user.first_name}}}</h2>
+    <h2>Bienvenido {{{user.rol}}} {{{user.first_name}}}</h2>
 
-<div id="usersButtons">
-    {{{usersButtonsProfileLogout}}}
-    {{{usersButtonsLoginSignup}}}
-</div>
+    <div id="usersButtons">
+        {{{usersButtonsProfileLogout}}}
+        {{{usersButtonsLoginSignup}}}
+    </div>
 
-<a href="/chat"><button>Ir al chat</button></a>
+    <a href="/chat"><button>Ir al chat</button></a>
 
-<div>
-    <h2>Agregar nuevo producto (Solo para ADMIN)</h2>
-    <form id="newProduct">
-        <input type="text" name="title" id="title" placeholder="title...">
-        <input type="text" name="description" id="description" placeholder="description...">
-        <input type="text" name="code" id="code" placeholder="code...">
-        <input type="number" name="price" id="price" placeholder="price...">
-        <input type="number" name="stock" id="stock" placeholder="stock...">
-        <input type="text" name="categoty" id="category" placeholder="category...">
-        <button id="addProduct">Agregar</button>
-    </form>
-</div>
+    <div>
+        <h2>Agregar nuevo producto (Solo para ADMIN)</h2>
+        <form id="newProduct">
+            <input type="text" name="title" id="title" placeholder="title...">
+            <input type="text" name="description" id="description" placeholder="description...">
+            <input type="text" name="code" id="code" placeholder="code...">
+            <input type="number" name="price" id="price" placeholder="price...">
+            <input type="number" name="stock" id="stock" placeholder="stock...">
+            <input type="text" name="categoty" id="category" placeholder="category...">
+            <button id="addProduct">Agregar</button>
+        </form>
+    </div>
 
-<div class="container">
-    {{{productsRenderList}}}
-</div>
+    <div class="container">
+        {{{productsRenderList}}}
+    </div>
 
 
-<div id="pagination">
+    <div id="pagination">
 
-</div>
+    </div>
+</section>
 <div id="productsResponseJSON" style="display: none;">
     {{{productsResponseJSON}}}
 </div>

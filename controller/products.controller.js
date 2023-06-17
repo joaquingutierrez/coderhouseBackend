@@ -1,7 +1,7 @@
 const { productsList } = require("../dao/factory");
 const { CustomError } = require("../services/errors/CustomError");
 const { EErrors } = require("../services/errors/enum");
-const {generateProductErrorInfo} = require("../services/errors/info")
+const { generateProductErrorInfo } = require("../services/errors/info")
 require('dotenv').config()
 
 if (process.env.PERSISTENCE === "MONGO") {
@@ -68,6 +68,7 @@ const getAllProducts = async (request, response) => {
                 `
                 if (user) {
                     response.render("home", {
+                        style: "/css/productsHome.css",
                         productsRenderList,
                         productsResponseJSON,
                         user,
@@ -75,6 +76,7 @@ const getAllProducts = async (request, response) => {
                     })
                 } else {
                     response.render("home", {
+                        style: "/css/productsHome.css",
                         productsRenderList,
                         productsResponseJSON,
                         usersButtonsLoginSignup
@@ -163,7 +165,7 @@ const updateMyProduct = async (req, res) => {
     const productBefore = await productsList.getProductById(productId)
     if (productBefore[0].owner === req.session.user.email || req.session.user.rol === "ADMIN") {
         const updatedProduct = await productsList.updateProduct(productId, product)
-        res.send({message: "success", payload: updatedProduct})
+        res.send({ message: "success", payload: updatedProduct })
     } else {
         res.send("Usuario no autorizado")
     }
