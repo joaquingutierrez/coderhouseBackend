@@ -2,6 +2,7 @@ const { productsList } = require("../dao/factory");
 const { CustomError } = require("../services/errors/CustomError");
 const { EErrors } = require("../services/errors/enum");
 const { generateProductErrorInfo } = require("../services/errors/info")
+const {sendEmailOfConfirmationProductDelete} = require("../utils/sendEmail")
 require('dotenv').config()
 
 if (process.env.PERSISTENCE === "MONGO") {
@@ -147,12 +148,15 @@ const newProduct = async (req, res, next) => {
     }
 }
 
-const deleteMyProduct = (req, res) => {
+const deleteMyProduct = async (req, res) => {
     const productId = req.params.pId;
 
-    const productBefore = productsList.getProductById(productId)
+    const productBefore = await productsList.getProductById(productId)
     if (productBefore[0]?.owner === req.session.user.email || req.session.user.rol === "ADMIN") {
         productsList.deleteProduct(productId)
+        if (productBefore[0]?.owner) {
+            sendEmailOfConfirmationProductDelete(productBefore[0].owner, productBefore[0])
+        }
         res.send(`Producto con id: ${productId} eliminado satisfactoriamente`)
     } else {
         res.send("Usuario no autorizado")
