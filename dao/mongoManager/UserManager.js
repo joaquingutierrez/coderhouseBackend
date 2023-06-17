@@ -54,6 +54,14 @@ class UserManager {
             throw err
         }
     }
+    async deleteUserByEmail(email) {
+        try {
+            return await userModel.findOneAndDelete({email: email})
+        }
+        catch (err) {
+            throw err
+        }
+    }
    /*  async updateUserDocuments(_id, typeOfDocument, documentFile) {
         let indexOfDocument
         switch (typeOfDocument) {

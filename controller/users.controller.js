@@ -54,10 +54,16 @@ const deleteInactiveUsers = async (req, res) => {
         res.send({ message: "success" })
     })
 }
+const deleteUserByEmail = async (req,res) => {
+    const {email} = req.params
+    await userManager.deleteUserByEmail(email)
+    res.send({message: "success"})
+}
 
 module.exports = {
     changeRol,
     uploadDocuments,
     getAllUsers,
-    deleteInactiveUsers
+    deleteInactiveUsers,
+    deleteUserByEmail
 }
