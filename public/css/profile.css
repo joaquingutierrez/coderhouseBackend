@@ -1,0 +1,16 @@
+body {
+    background-color: #AA5939;
+}
+button {
+    background-color: #551800;
+    color: #FFC2AA;
+    padding: 1rem;
+    border-radius: 25%;
+    margin: 0.5rem;
+}
+input {
+    background-color: #551800;
+    color: #FFC2AA;
+    padding: 1rem;
+    margin: 0.5rem;
+}
