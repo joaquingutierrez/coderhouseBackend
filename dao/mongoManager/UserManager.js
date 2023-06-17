@@ -46,6 +46,14 @@ class UserManager {
             throw err
         }
     }
+    async deleteInactiveUsers(_id) {
+        try {
+            return await userModel.findByIdAndDelete(_id)
+        }
+        catch (err) {
+            throw err
+        }
+    }
    /*  async updateUserDocuments(_id, typeOfDocument, documentFile) {
         let indexOfDocument
         switch (typeOfDocument) {
