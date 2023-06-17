@@ -16,7 +16,7 @@ const paginationFunction = (paginationParams) => {
 const totalPagesFunction = (totalPages, page) => {
     let acum =""
     for (let i = 1; i<=totalPages; i++) {
-        acum += `<p class=${page === i ? "active" : ""}>${i}</p>`
+        acum += `<a href="?page=${i}"><p class=${page === i ? "active" : ""}>${i}</p></a>`
     }
     return acum
 }
