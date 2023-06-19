@@ -87,6 +87,23 @@ class CartManager {
         }
     }
 
+    async stockValidation(cId) {
+        const cart = await cartsModel.findOne({ _id: cId }).populate("products.productId")
+        let stockValidation = true
+        if (cart.products.length > 0) {
+            for (let i = 0; i < cart.products.length; i++) {
+                if (stockValidation) {
+                    const pId = cart.products[i].productId._id.toString()
+                    const productStock = await productsList.getProductById(pId)
+                    if (productStock[0].stock < cart.products[i].quantity) {
+                        stockValidation = false
+                    }
+                }
+            }
+        }
+        return stockValidation
+    }
+
     async purchase(cId) {
         const cart = await cartsModel.findOne({ _id: cId }).populate("products.productId")
         if (cart.products.length > 0) {

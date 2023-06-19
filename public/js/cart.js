@@ -6,17 +6,10 @@ buyButton.addEventListener("click", () => {
     })
     .then(res => res.json())
     .then(data => {
-        window.location.href = data.payload.url
+        if (data.message === "success") {
+            window.location.href = data.payload.url
+        } else {
+            alert("No hay stock de al menos uno de los productos")
+        }
     })
-
-    /* const cId = buyButton.getAttribute("ref")
-    const rute = cId + "/purchase"
-    fetch(rute, { method: "POST" })
-        .then(res => res.json())
-        .then(data => {
-            if (data.message === "success") {
-                const code = data.ticket.code
-                window.location.href = "/api/ticket/" + code
-            }
-        }) */
 })
