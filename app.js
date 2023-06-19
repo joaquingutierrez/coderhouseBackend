@@ -69,6 +69,12 @@ app.use("/api/loggerTest", loggerTestRouter)
 app.use("/api/mail", mailRouter)
 app.use("/api/passwordrecovery", passwordRecoveryRouter)
 app.use("/api/payments", paymentsRouter)
+app.use("/success.html", (req, res) => {
+    res.send("Todo bien")
+})
+app.use("/cancel.html", (req, res) => {
+    res.send("Todo mal")
+})
 
 const PORT = 8080
 const httpServer = app.listen(PORT)

@@ -76,6 +76,17 @@ class CartManager {
         )
     }
 
+    async getTotal(cId) {
+        const cart = await cartsModel.findOne({ _id: cId }).populate("products.productId")
+        if (cart.products.length > 0) {
+            let amount = 0
+            for (let i = 0; i < cart.products.length; i++) {
+                amount += cart.products[i].productId.price * cart.products[i].quantity
+            }
+            return amount
+        }
+    }
+
     async purchase(cId) {
         const cart = await cartsModel.findOne({ _id: cId }).populate("products.productId")
         if (cart.products.length > 0) {
@@ -86,7 +97,7 @@ class CartManager {
                 if (productStock[0].stock >= cart.products[i].quantity) {
                     amount += cart.products[i].productId.price * cart.products[i].quantity
                     productStock[0].stock -= cart.products[i].quantity
-                    await productsList.updateProduct(pId, {stock: productStock[0].stock})
+                    await productsList.updateProduct(pId, { stock: productStock[0].stock })
                     this.deleteProduct(cId, cart.products[i].productId._id)
                 }
             }
