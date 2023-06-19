@@ -7,16 +7,28 @@ require("dotenv").config()
 
 paymentsRouter.post('/payment-intents', async (req, res) => {
     const cId = req.session.user.cart
-    let totalAmount = await cartsList.purchase(cId)
+    let totalAmount = await cartsList.getTotal(cId)
     totalAmount = totalAmount * 100
-    const paymentInfo = {
-        currency: 'ars',
-        amount: totalAmount,
-    }
     const service = new PaymentService()
-    const result = await service.createPaymentIntent(paymentInfo)
-    console.log(result)
-    res.send({message: "success", payload: result})
+    const session = await service.stripe.checkout.sessions.create({
+        line_items: [{
+            price_data: {
+                product_data: {
+                    name: "Carrito",
+                },
+                currency: "usd",
+                unit_amount: totalAmount,
+            },
+            quantity: 1,
+        },],
+        mode: "payment",
+        success_url: "http://localhost:8080/success",
+        cancel_url: "http://localhost:8080/cancel",
+    });
+
+    console.log(session);
+
+    res.send({ message: "success", payload: session })
 });
 
 module.exports = {
@@ -24,3 +36,11 @@ module.exports = {
 }
 
 
+/*     const paymentInfo = {
+        currency: 'ars',
+        amount: totalAmount,
+        payment_method_types: ['card']
+    }
+    const service = new PaymentService()
+    const result = await service.createPaymentIntent(paymentInfo)
+    console.log(result) */

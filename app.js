@@ -69,10 +69,10 @@ app.use("/api/loggerTest", loggerTestRouter)
 app.use("/api/mail", mailRouter)
 app.use("/api/passwordrecovery", passwordRecoveryRouter)
 app.use("/api/payments", paymentsRouter)
-app.use("/success.html", (req, res) => {
+app.use("/success", (req, res) => {
     res.send("Todo bien")
 })
-app.use("/cancel.html", (req, res) => {
+app.use("/cancel", (req, res) => {
     res.send("Todo mal")
 })
 
