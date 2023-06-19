@@ -7,7 +7,7 @@ require("dotenv").config()
 
 paymentsRouter.post('/payment-intents', async (req, res) => {
     const cId = req.session.user.cart
-    let totalAmount = await cartsList.getTotal(cId)
+    let totalAmount = await cartsList.purchase(cId)
     totalAmount = totalAmount * 100
     const paymentInfo = {
         currency: 'ars',
