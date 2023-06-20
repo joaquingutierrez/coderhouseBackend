@@ -24,8 +24,8 @@ paymentsRouter.post('/payment-intents', async (req, res) => {
                 quantity: 1,
             },],
             mode: "payment",
-            success_url: "http://localhost:8080/success",
-            cancel_url: "http://localhost:8080/cancel",
+            success_url: "/success",
+            cancel_url: "/cancel",
         });
     
     
