@@ -15,6 +15,7 @@ const cartListRender = (cart) => {
             <td>${products[i].productId.category}</td>
             <td>${products[i].productId.stock}</td>
             <td>${products[i].quantity}</td>
+            <td class="deleteFromCart" ref=${products[i].productId._id}>X</td>
         </tr>
         `
     }
@@ -79,7 +80,7 @@ const deleteProductFromMyCart = async function (req, res) {
     const { cId, pId } = req.params
     cartsList.deleteProduct(cId, pId)
     const cart = await cartsList.getCart(cId)
-    res.send(cart)
+    res.send({message: "success", cart})
 }
 
 const updateMyCart = async function (req, res) {
