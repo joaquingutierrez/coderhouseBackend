@@ -1,5 +1,6 @@
 const chai = require("chai")
 const supertest = require("supertest")
+require("dotenv").config()
 
 
 const expect = chai.expect
@@ -34,7 +35,18 @@ describe("users Test", () => {
         expect(_body.user).to.not.has.property("password")
     })
     it("Debe traer el render del profile del usuario", async () => {
-        const {statusCode} = await requester.get("/api/session/current").set("Cookie", [cookieResult])
+        const { statusCode } = await requester.get("/api/session/current").set("Cookie", [cookieResult])
+        expect(statusCode).to.be.equal(200)
+    })
+    it("El admin debe borrar al usuario creado anteriormente" ,async function() {
+        await requester.get("/logout")
+        const admin_user = {
+            email: process.env.ADMIN_EMAIL,
+            password: process.env.ADMIN_PASSWORD
+        }
+        const { header } = await requester.post("/login").send(admin_user)
+        cookieResult = header["set-cookie"]
+        const { statusCode } = await requester.delete("/api/users/email_de_prueba@gmail.com").set("Cookie", [cookieResult])
         expect(statusCode).to.be.equal(200)
     })
 })

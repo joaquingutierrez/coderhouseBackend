@@ -65,7 +65,7 @@ const addProductToMyCart = async function (req, res) {
     const { cId, pId } = req.params;
     const { quantity } = await req.body;
     const product = await productsList.getProductById(pId)
-    if (product[0].owner === req.session.user.email) {
+    if (product[0]?.owner === req.session.user.email) {
         res.send("No puede agregar un producto creado por usted")
     } else {
         await cartsList.addProduct(cId, pId, 1);

@@ -62,29 +62,6 @@ class UserManager {
             throw err
         }
     }
-   /*  async updateUserDocuments(_id, typeOfDocument, documentFile) {
-        let indexOfDocument
-        switch (typeOfDocument) {
-            case "identificaion":
-                indexOfDocument = 0
-                break
-            case "comprobante_de_domicilio":
-                indexOfDocument = 1
-                break
-            case "comprobante_de_estado_de_cuenta":
-                indexOfDocument = 2
-                break
-            default:
-                indexOfDocument = -1
-
-        }
-        try {
-            return await userModel.findByIdAndUpdate(_id, { $push: { "documents": {documentFile}, position: indexOfDocument } })
-        }
-        catch (err) {
-            throw err
-        }
-    } */
 }
 
 const userManager = new UserManager

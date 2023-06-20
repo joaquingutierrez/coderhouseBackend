@@ -1,5 +1,6 @@
 const chai = require("chai")
 const supertest = require("supertest")
+require("dotenv").config()
 
 const expect = chai.expect
 const requester = supertest("http://localhost:8080")
@@ -9,11 +10,19 @@ let cartId
 
 describe("Products Test", () => {
     before(async () => {
-        const user = {
+        const newUser = {
+            first_name: "Nombre de prueba",
+            last_name: "Apellido de prueba",
+            email: "email_de_prueba@gmail.com",
+            age: 20,
+            password: "123"
+        }
+        await requester.post("/signup").send(newUser)
+        const loginUser = {
             email: "email_de_prueba@gmail.com",
             password: "123"
-        } //usuario creado en el testing de usuarios
-        const { header } = await requester.post("/login").send(user)
+        }
+        const { header } = await requester.post("/login").send(loginUser)
         cookieResult = header["set-cookie"]
     })
 
@@ -46,5 +55,15 @@ describe("Products Test", () => {
         const URL = "/api/carts/" + cartId + "/purchase"
         const {statusCode} = await requester.post(URL).set("Cookie", [cookieResult])
         expect(statusCode).to.be.equal(200)
+    })
+    after(async () => {
+        await requester.get("/logout")
+        const admin_user = {
+            email: process.env.ADMIN_EMAIL,
+            password: process.env.ADMIN_PASSWORD
+        }
+        const { header } = await requester.post("/login").send(admin_user)
+        cookieResult = header["set-cookie"]
+        await requester.delete("/api/users/email_de_prueba@gmail.com").set("Cookie", [cookieResult])
     })
 })
