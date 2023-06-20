@@ -1,4 +1,6 @@
 paths:
+  security:
+    - cookieAuth: []
   /api/carts:
     get:
       summary: Obtiene todos los carritos de la base de datos
@@ -203,3 +205,8 @@ components:
           description: Nueva cantidad del producto.
       example:
         newQuantity: 12
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: connect.sid

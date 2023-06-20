@@ -72,7 +72,7 @@ app.use("/api/passwordrecovery", passwordRecoveryRouter)
 app.use("/api/payments", paymentsRouter)
 app.use("/success", successPaymentRouter)
 app.use("/cancel", (req, res) => {
-    res.send("Todo mal")
+    res.send("Algo salio mal")
 })
 
 const PORT = 8080
