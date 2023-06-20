@@ -24,8 +24,8 @@ paymentsRouter.post('/payment-intents', async (req, res) => {
                 quantity: 1,
             },],
             mode: "payment",
-            success_url: "/success",
-            cancel_url: "/cancel",
+            success_url: process.env.URL + "/success",
+            cancel_url: process.env.URL + "/cancel",
         });
     
     
@@ -37,13 +37,3 @@ paymentsRouter.post('/payment-intents', async (req, res) => {
 module.exports = {
     paymentsRouter
 }
-
-
-/*     const paymentInfo = {
-        currency: 'ars',
-        amount: totalAmount,
-        payment_method_types: ['card']
-    }
-    const service = new PaymentService()
-    const result = await service.createPaymentIntent(paymentInfo)
-    console.log(result) */
