@@ -28,7 +28,6 @@ paymentsRouter.post('/payment-intents', async (req, res) => {
             cancel_url: "http://localhost:8080/cancel",
         });
     
-        console.log(session);
     
         return res.send({ message: "success", payload: session })
     }
