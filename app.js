@@ -75,7 +75,7 @@ app.use("/cancel", (req, res) => {
     res.send("Algo salio mal")
 })
 
-const PORT = 8080
+const PORT = process.env.PORT || 8080
 const httpServer = app.listen(PORT)
 const socketServer = new Server(httpServer)
 socketServer.on("connection", (socket) => {
