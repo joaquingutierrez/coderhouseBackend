@@ -36,7 +36,7 @@ const sendRecoveryEmail = async (req, res) => {
 
     const result = await resetPassword.save()
 
-    const recoveryLink = `localhost:8080/api/passwordrecovery/change-password/${token}`
+    const recoveryLink = `${process.enc.URL}/api/passwordrecovery/change-password/${token}`
     await transporter.sendMail({
         from: '"Recuperacion de contraseña" <no-contestar@gmail.com>',
         to: recoveryEmail,
