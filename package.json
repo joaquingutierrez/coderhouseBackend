@@ -7,7 +7,7 @@
     "test1": "mocha test/users.test.js",
     "test2": "mocha test/products.test.js",
     "test3": "mocha test/carts.test.js",
-    "start": "npx nodemon app"
+    "start": "node ./app.js"
   },
   "repository": {
     "type": "git",
