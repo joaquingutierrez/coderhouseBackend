@@ -11,7 +11,7 @@ const myCustomColors = {
     silly: "gray"
 };
 
-const environment = process.env.environment
+const environment = process.env.ENVIRONMENT
 
 
 if (environment === "production") {
