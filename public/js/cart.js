@@ -1,6 +1,11 @@
 const buyButton = document.getElementById("buyButton")
 const deleteFromCart = document.getElementsByClassName("deleteFromCart")
 const cId = document.getElementById("cId").innerText
+const amount = document.getElementById("amount").innerText
+
+if (amount <= 0) {
+    buyButton.style.display = "none"
+}
 
 buyButton.addEventListener("click", () => {
     fetch("/api/payments/payment-intents",{

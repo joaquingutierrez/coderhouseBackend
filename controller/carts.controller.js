@@ -59,7 +59,8 @@ const getMyCart = async function (req, res) {
     const cId = req.params.cId;
     const cart = await cartsList.getCart(cId)
     const cartListRenderHTML = cartListRender(cart)
-    res.render("cart", { style: "/css/cart.css", cartListRenderHTML, cId })
+    const amount = await cartsList.getTotal(cart)
+    res.render("cart", { style: "/css/cart.css", cartListRenderHTML, cId, amount })
 }
 
 const addProductToMyCart = async function (req, res) {
